@@ -10,7 +10,7 @@ Sorgenti: [GexyLab/lilos-plugins-community](https://github.com/GexyLab/lilos-plu
 
 - **lilOS dalla 1.18.0.**
 - **Il browser.** Per caricare gli sketch e usare il monitor seriale servono **Chrome**, **Edge** o **Firefox 151 o più recente**, con lilOS aperto su un indirizzo `https` (o su `localhost`). **Safari non va.** Senza, puoi comunque scrivere e verificare gli sketch.
-- **Il modulo del kernel.** ArduinoIDE4LilOS compila con il modulo **arduino**, nello stesso repository. Se manca, l'app lo dice («Manca il modulo Arduino del kernel»): un amministratore lo installa da AppStore → Kernel e riavvia lilOS.
+- **Il modulo del kernel.** ArduinoIDE4LilOS compila con il modulo **arduino**, nello stesso repository. Da lilOS 1.21.0 l'AppStore lo installa insieme all'app (dopo averlo detto) e chiede di riavviare il kernel, perché il modulo entra in funzione solo dopo il riavvio. Con un lilOS più vecchio, se manca, l'app lo dice («Manca il modulo Arduino del kernel»): un amministratore lo installa da AppStore → Kernel e riavvia lilOS.
 - **La scheda collegata al computer in cui usi il browser**, anche se lilOS gira su un altro computer o su un server.
 
 ## La prima volta

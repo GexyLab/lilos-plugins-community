@@ -1,6 +1,6 @@
 {
   "id": "arduino-ide",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "kind": "local",
   "name": "ArduinoIDE4LilOS",
   "description": "Write, compile and upload sketches for Arduino Uno, Nano and Mega, with suggestions while you type, libraries and the serial monitor. The board is plugged into your computer (Chrome, Edge or Firefox 151+).",
@@ -17,6 +17,9 @@
       }
     }
   },
+  "dependencies": [
+    { "module": "arduino", "version": ">=1.0.1", "repo": "https://github.com/GexyLab/lilos-plugins-community", "reason": "Compiles the sketches and gives the suggestions while you type" }
+  ],
   "permissions": ["fs.write:~/Arduino", "serial", "kernel:arduino"],
   "contributes": {
     "window": { "width": 1120, "height": 740 },
