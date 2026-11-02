@@ -14,7 +14,7 @@
     "name": "lilOS"
   },
   "sdk": "2",
-  "lilos": ">=1.21.0",
+  "lilos": ">=1.22.0",
   "entrypoints": {
     "main": {
       "kind": "window",
@@ -27,6 +27,14 @@
       }
     }
   },
+  "dependencies": [
+    {
+      "module": "arduino",
+      "version": ">=1.0.1",
+      "repo": "https://github.com/GexyLab/lilos-plugins-community",
+      "reason": "Compiles the sketches and gives the suggestions while you type"
+    }
+  ],
   "permissions": [
     "fs.write:~/Arduino",
     "serial",
@@ -75,6 +83,6 @@
   "locales": "locales.json",
   "files": {
     "dist/index.js": "sha256-EnD8lVh5HOK6FAxSp59ukl9u2MOB8+JbxN9Yo/pvVEI=",
-    "locales.json": "sha256-rKO8vc/dcOz2mY302IPUBUmFMqg4Dtea2sWjvwN4iDg="
+    "locales.json": "sha256-WLMoI9EouoMCZs/HCo5FZwlpSuUsFrhrapQKrMSLQdY="
   }
 }

@@ -49,7 +49,7 @@ Other parts of `lilos` the app uses instead of its own copies:
 
 The shortcuts are commands of the manifest: in the sandbox the bridge catches their keys before the editor. When an administrator runs the app not isolated, it shares lilOS's keyboard: the app keeps Delete, Backspace and the combos the editor used (Ctrl+Z, Ctrl+A…) away from lilOS's own shortcuts. There, Ctrl+U in the editor is CodeMirror's «undo selection», not Upload.
 
-These APIs are lilOS's, documented in its repository: [api.md](https://github.com/GexyLab/lilos/blob/development/doc/sviluppatore/api.md) (`serial`, `kernel.channel`, `kernel.module`, the `window.lilos` bridge, the permissions `serial`, `kernel:<module>` and `ui.shortcuts`). For kernel modules, `ctx.socket(path, handler)` and `ctx.dataDir` are documented there too. The app needs lilOS 1.21.0 (SDK 0.13.0).
+These APIs are lilOS's, documented in its repository: [api.md](https://github.com/GexyLab/lilos/blob/development/doc/sviluppatore/api.md) (`serial`, `kernel.channel`, `kernel.module`, the `window.lilos` bridge, the permissions `serial`, `kernel:<module>` and `ui.shortcuts`). For kernel modules, `ctx.socket(path, handler)` and `ctx.dataDir` are documented there too. The app needs lilOS 1.22.0 (SDK 0.14.0).
 
 ## The app (`src/arduino-ide/`)
 
