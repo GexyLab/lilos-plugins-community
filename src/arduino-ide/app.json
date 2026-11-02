@@ -1,0 +1,28 @@
+{
+  "id": "arduino-ide",
+  "version": "1.0.0",
+  "kind": "local",
+  "name": "ArduinoIDE",
+  "description": "Write, compile and upload sketches for Arduino Uno, Nano and Mega, with suggestions while you type, libraries and the serial monitor. The board is plugged into your computer (Chrome, Edge or Firefox 151+).",
+  "category": "development",
+  "icon": { "glyph": "chip", "color": "#0f7d74" },
+  "publisher": { "id": "lilos", "name": "lilOS" },
+  "sdk": "2",
+  "lilos": ">=1.18.0",
+  "entrypoints": {
+    "main": {
+      "kind": "window",
+      "params": {
+        "file": { "type": "file", "label": "Sketch", "description": "The .ino file to open" }
+      }
+    }
+  },
+  "permissions": ["fs.write:~/Arduino", "serial", "kernel:arduino"],
+  "contributes": {
+    "window": { "width": 1120, "height": 740 },
+    "fileTypes": ["ino"]
+  },
+  "install": [
+    { "op": "mkdir", "path": "~/Arduino" }
+  ]
+}

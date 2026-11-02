@@ -1,0 +1,26 @@
+{
+  "name": "lilos-plugins-community",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Community apps and kernel modules for lilOS",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "check:credits": "node scripts/build.mjs --check-credits"
+  },
+  "devDependencies": {
+    "vite": "8.3.5"
+  },
+  "dependencies": {
+    "@codemirror/autocomplete": "6.20.4",
+    "@codemirror/commands": "6.11.1",
+    "@codemirror/lang-cpp": "6.0.3",
+    "@codemirror/language": "6.13.1",
+    "@codemirror/lsp-client": "6.3.0",
+    "@codemirror/state": "6.7.6",
+    "@codemirror/view": "6.43.15",
+    "@lezer/highlight": "1.2.5",
+    "codemirror": "6.0.2"
+  }
+}

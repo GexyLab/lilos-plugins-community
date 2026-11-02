@@ -1,0 +1,9 @@
+{
+  "name": "lilOS community",
+  "apps": [
+    "apps/arduino-ide"
+  ],
+  "modules": [
+    "modules/arduino"
+  ]
+}

@@ -1,0 +1,2 @@
+# Packages are installed byte for byte (lilos.json has their hashes): never convert line endings
+* -text

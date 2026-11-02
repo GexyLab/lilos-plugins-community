@@ -1,0 +1,14 @@
+# arduino
+
+Modulo del kernel per **ArduinoIDE**: compila gli sketch, installa le librerie e dà all'editor i suggerimenti mentre si scrive. Il caricamento sulla scheda non lo fa il kernel: la scheda è collegata al computer di chi usa lilOS, e ArduinoIDE la programma dal browser con Web Serial.
+
+- **Preparazione**, una volta, da un amministratore (la propone ArduinoIDE): scarica arduino-cli, arduino-language-server e clangd da Arduino, controlla l'impronta SHA-256 di ogni file e installa il pacchetto delle schede AVR (Uno, Nano, Mega). Circa 150 MB da scaricare, 500 MB su disco.
+- **Pacchetti delle schede** condivisi da tutti gli utenti; **librerie** installate per ogni utente. Le librerie scritte dall'utente (`~/Arduino/libraries`) arrivano con ogni compilazione.
+- **Compilazione** su una copia dello sketch, con una cache per sketch e scheda (le cache non usate da 14 giorni si cancellano). Al massimo due compilazioni alla volta.
+- **Sicurezza**: il compilatore gira con i diritti del kernel. Non si compila (e il server dei suggerimenti non lo vede) uno sketch con `#include`, `#import` o `#embed` di un percorso assoluto, con `..` o fatto da una macro, con assembler inline o `.incbin`, con file `.s`/`.S` o con nomi che arduino-cli legge come opzioni (`build_opt.h`, `build_extra_flags.h`, `platform.txt`…); una libreria propria non può avere `ldflags` o `precompiled` in `library.properties`. Il testo si legge come lo legge il preprocessore (anche `\r` isolati e continuazioni di riga con spazi). I programmi partono con un ambiente ridotto. È un filtro, non una sandbox: su un server con utenti non fidati il kernel va eseguito come un utente che non può leggere niente di segreto.
+- **Suggerimenti**: un arduino-language-server per finestra (al massimo tre per utente), sugli indirizzi `file:///sketch/<Nome>/…` che il modulo traduce; passano solo i messaggi LSP che servono all'editor.
+- **Limiti**: al massimo cinque finestre collegate e due compilazioni (in corso o in attesa) per utente; l'indice delle librerie si aggiorna una volta al giorno, e dopo un tentativo fallito riprova dopo 10 minuti.
+
+Impostazione **Cartella dei dati** (`dataPath`): dove vanno strumenti, pacchetti e librerie; vuota, la cartella del kernel (`modules-data/arduino`). Su Windows conviene un percorso corto: il compilatore AVR non legge percorsi più lunghi di 260 caratteri.
+
+Programmi scaricati (non modificati, eseguiti come programmi a parte): [arduino-cli](https://github.com/arduino/arduino-cli) 1.5.1 (GPL-3.0, © ARDUINO SA), [arduino-language-server](https://github.com/arduino/arduino-language-server) 0.7.7 (AGPL-3.0, © ARDUINO SA), [clangd](https://clangd.llvm.org) 14.0.0 (Apache-2.0 con eccezione LLVM, © The LLVM Project). Su Linux ARM a 32 bit clangd non c'è: si compila, ma senza suggerimenti.

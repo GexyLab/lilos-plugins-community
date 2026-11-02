@@ -1,0 +1,18 @@
+{
+  "name": "arduino",
+  "version": "1.0.0",
+  "description": "Arduino per ArduinoIDE: compila gli sketch, installa le librerie e dà i suggerimenti dell'editor (arduino-cli, arduino-language-server, clangd)",
+  "kernel": "1",
+  "icon": { "glyph": "chip", "color": "#0f7d74" },
+  "provides": [],
+  "requires": [],
+  "settings": [
+    {
+      "key": "dataPath", "type": "text",
+      "label": { "en": "Data folder", "it": "Cartella dei dati" },
+      "placeholder": "C:\\lilos-arduino",
+      "hint": { "en": "Where the tools, the boards' packages and the libraries go (about 500 MB). Empty: the kernel's folder. On Windows choose a short path: the AVR compiler does not read paths longer than 260 characters", "it": "Dove vanno gli strumenti, i pacchetti delle schede e le librerie (circa 500 MB). Vuota: la cartella del kernel. Su Windows scegli un percorso corto: il compilatore AVR non legge percorsi più lunghi di 260 caratteri" }
+    }
+  ],
+  "defaultConfig": {}
+}
