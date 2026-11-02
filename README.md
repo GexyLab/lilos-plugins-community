@@ -18,12 +18,12 @@ Its apps and modules then appear in the AppStore next to the official ones. lilO
 
 | Folder | What | Notes |
 |---|---|---|
-| `apps/arduino-ide` | **ArduinoIDE**: write, compile and upload sketches for Arduino Uno, Nano and Mega. It has suggestions while you type, a library manager, examples and a serial monitor. The board is plugged into your computer, and the browser talks to it with Web Serial (Chrome, Edge, Firefox 151+). | Needs lilOS 1.18.0+ and the `arduino` module |
-| `modules/arduino` | Kernel module for ArduinoIDE. It compiles sketches and installs libraries with arduino-cli, and gives the editor its suggestions with arduino-language-server and clangd. | An administrator installs it, then runs the setup |
+| `apps/arduino-ide` | **ArduinoIDE4LilOS**: write, compile and upload sketches for Arduino Uno, Nano and Mega. It has suggestions while you type, a library manager, examples and a serial monitor. The board is plugged into your computer, and the browser talks to it with Web Serial (Chrome, Edge, Firefox 151+). | Needs lilOS 1.18.0+ and the `arduino` module |
+| `modules/arduino` | Kernel module for ArduinoIDE4LilOS. It compiles sketches and installs libraries with arduino-cli, and gives the editor its suggestions with arduino-language-server and clangd. | An administrator installs it, then runs the setup |
 
 `catalog.json` lists the package folders: it is what the AppStore reads. Each package folder has a `README.md`, which the AppStore shows in the package details.
 
-How ArduinoIDE works inside: [doc/arduino-ide.md](doc/arduino-ide.md).
+How ArduinoIDE4LilOS works inside: [doc/arduino-ide.md](doc/arduino-ide.md).
 
 ## Structure
 

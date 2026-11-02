@@ -3,7 +3,7 @@ import { Arduino } from './arduino.js';
 import { LanguageServer, MAX_PER_USER } from './lsp.js';
 
 /**
- * Arduino for lilOS's apps (ArduinoIDE): compiles sketches, keeps the boards' packages and the
+ * Arduino for lilOS's apps (ArduinoIDE4LilOS): compiles sketches, keeps the boards' packages and the
  * users' libraries, and gives the editor its suggestions. Uploading to the board is not done here:
  * the board is plugged into the user's computer and the page writes to it with Web Serial.
  *
@@ -36,7 +36,7 @@ export default {
     ctx.route('GET', '/status', () => arduino.status());
 
     ctx.socket('/session', ({ principal, accept }) => {
-      if ((open.get(principal.id) ?? 0) >= SESSIONS_PER_USER) ctx.fail('rate_limited', 'Troppe finestre di ArduinoIDE aperte');
+      if ((open.get(principal.id) ?? 0) >= SESSIONS_PER_USER) ctx.fail('rate_limited', 'Troppe finestre di ArduinoIDE4LilOS aperte');
       const ws = accept({ maxMessage: 16 << 20 });
       open.set(principal.id, (open.get(principal.id) ?? 0) + 1);
       ws.on('close', () => { const n = (open.get(principal.id) ?? 1) - 1; if (n > 0) open.set(principal.id, n); else open.delete(principal.id); });

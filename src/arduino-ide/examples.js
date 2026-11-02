@@ -1,5 +1,5 @@
 /**
- * The examples that come with ArduinoIDE (written for it): opening one makes a new sketch with its
+ * The examples that come with ArduinoIDE4LilOS (written for it): opening one makes a new sketch with its
  * text in ~/Arduino. Library examples come from the kernel (libExample).
  */
 export const EXAMPLES = [

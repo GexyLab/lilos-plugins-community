@@ -1,4 +1,4 @@
-# ArduinoIDE
+# ArduinoIDE4LilOS
 
 Scrive i programmi (gli *sketch*) per le schede **Arduino Uno, Nano e Mega**, li controlla e li carica sulla scheda. Gli sketch stanno in `~/Arduino`: sono file normali di lilOS, uno sketch per cartella.
 
@@ -10,15 +10,15 @@ Sorgenti: [GexyLab/lilos-plugins-community](https://github.com/GexyLab/lilos-plu
 
 - **lilOS dalla 1.18.0.**
 - **Il browser.** Per caricare gli sketch e usare il monitor seriale servono **Chrome**, **Edge** o **Firefox 151 o più recente**, con lilOS aperto su un indirizzo `https` (o su `localhost`). **Safari non va.** Senza, puoi comunque scrivere e verificare gli sketch.
-- **Il modulo del kernel.** ArduinoIDE compila con il modulo **arduino**, nello stesso repository. Se manca, l'app lo dice («Manca il modulo Arduino del kernel»): un amministratore lo installa da AppStore → Kernel e riavvia lilOS.
+- **Il modulo del kernel.** ArduinoIDE4LilOS compila con il modulo **arduino**, nello stesso repository. Se manca, l'app lo dice («Manca il modulo Arduino del kernel»): un amministratore lo installa da AppStore → Kernel e riavvia lilOS.
 - **La scheda collegata al computer in cui usi il browser**, anche se lilOS gira su un altro computer o su un server.
 
 ## La prima volta
 
-La prima volta che si apre, ArduinoIDE chiede di **preparare Arduino**. lilOS scarica gli strumenti per compilare e il pacchetto delle schede, circa 150 MB.
+La prima volta che si apre, ArduinoIDE4LilOS chiede di **preparare Arduino**. lilOS scarica gli strumenti per compilare e il pacchetto delle schede, circa 150 MB.
 
 - Si fa una volta sola, per tutti gli utenti di questo lilOS.
-- **Solo un amministratore può farlo.** Un altro utente vede «Solo un amministratore può preparare Arduino» e deve chiedere a un amministratore di aprire ArduinoIDE una volta.
+- **Solo un amministratore può farlo.** Un altro utente vede «Solo un amministratore può preparare Arduino» e deve chiedere a un amministratore di aprire ArduinoIDE4LilOS una volta.
 
 Premi **Prepara** e aspetta che i passi finiscano.
 

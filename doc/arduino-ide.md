@@ -1,6 +1,6 @@
-# ArduinoIDE: how it works
+# ArduinoIDE4LilOS: how it works
 
-This is for people who want to change ArduinoIDE or the `arduino` kernel module. How to use the app is in [apps/arduino-ide/README.md](../apps/arduino-ide/README.md), in Italian, as the AppStore shows it.
+This is for people who want to change ArduinoIDE4LilOS or the `arduino` kernel module. How to use the app is in [apps/arduino-ide/README.md](../apps/arduino-ide/README.md), in Italian, as the AppStore shows it.
 
 ## The two halves
 
@@ -24,7 +24,7 @@ Rejected alternatives:
 
 ## What lilOS gives the app
 
-ArduinoIDE is an isolated app: it runs in a sandboxed iframe and reaches lilOS through `window.lilos`. It uses three permissions from `app.json`:
+ArduinoIDE4LilOS is an isolated app: it runs in a sandboxed iframe and reaches lilOS through `window.lilos`. It uses three permissions from `app.json`:
 
 | Permission | API | What for |
 |---|---|---|

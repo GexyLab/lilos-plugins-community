@@ -19259,7 +19259,7 @@ function gS({ lilos: e, root: t, args: n }) {
 		};
 		let r = `${s.name}.ino`, i = [...s.files.keys()].sort((e, t) => e === r ? -1 : t === r ? 1 : e.localeCompare(t));
 		for (let e of i.filter((e) => /\.(ino|h|hpp|c|cpp|S)$/.test(e))) T.open(s.name, e, s.files.get(e).saved);
-		s.files.has(r) && T.show(r), ae.hidden = !0, e.window.setTitle(`ArduinoIDE — ${s.name}`).catch(() => {}), e.storage.set("last", s.folder ? s.name : null).catch(() => {}), Ie(), Te(), re.dataset.pane === "sketchbook" && !re.hidden && Ue(), et();
+		s.files.has(r) && T.show(r), ae.hidden = !0, e.window.setTitle(`ArduinoIDE4LilOS — ${s.name}`).catch(() => {}), e.storage.set("last", s.folder ? s.name : null).catch(() => {}), Ie(), Te(), re.dataset.pane === "sketchbook" && !re.hidden && Ue(), et();
 	}
 	function Ie() {
 		if (S.replaceChildren(), s) {

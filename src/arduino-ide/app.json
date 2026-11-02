@@ -1,8 +1,8 @@
 {
   "id": "arduino-ide",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "kind": "local",
-  "name": "ArduinoIDE",
+  "name": "ArduinoIDE4LilOS",
   "description": "Write, compile and upload sketches for Arduino Uno, Nano and Mega, with suggestions while you type, libraries and the serial monitor. The board is plugged into your computer (Chrome, Edge or Firefox 151+).",
   "category": "development",
   "icon": { "glyph": "chip", "color": "#0f7d74" },

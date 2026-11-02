@@ -1,7 +1,7 @@
 {
   "name": "arduino",
-  "version": "1.0.0",
-  "description": "Arduino per ArduinoIDE: compila gli sketch, installa le librerie e dà i suggerimenti dell'editor (arduino-cli, arduino-language-server, clangd)",
+  "version": "1.0.1",
+  "description": "Arduino per ArduinoIDE4LilOS: compila gli sketch, installa le librerie e dà i suggerimenti dell'editor (arduino-cli, arduino-language-server, clangd)",
   "kernel": "1",
   "icon": { "glyph": "chip", "color": "#0f7d74" },
   "provides": [],

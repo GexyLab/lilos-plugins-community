@@ -9,7 +9,7 @@ import { EXAMPLES } from './examples.js';
 import { STYLE } from './style.js';
 
 /**
- * ArduinoIDE: sketches for Arduino Uno, Nano and Mega in lilOS (sdk 2, an installable app; it has
+ * ArduinoIDE4LilOS: sketches for Arduino Uno, Nano and Mega in lilOS (sdk 2, an installable app; it has
  * only `lilos`, no lilOS SDK).
  *
  * - The sketches are folders of ~/Arduino (permission fs.write:~/Arduino); the user's own libraries
@@ -319,7 +319,7 @@ export function main({ lilos, root, args }) {
     for (const path of order.filter(p => /\.(ino|h|hpp|c|cpp|S)$/.test(p))) editors.open(sketch.name, path, sketch.files.get(path).saved);
     if (sketch.files.has(main)) editors.show(main);
     empty.hidden = true;
-    lilos.window.setTitle(`ArduinoIDE — ${sketch.name}`).catch(() => {});
+    lilos.window.setTitle(`ArduinoIDE4LilOS — ${sketch.name}`).catch(() => {});
     lilos.storage.set('last', sketch.folder ? sketch.name : null).catch(() => {});
     drawTabs();
     drawStatus();

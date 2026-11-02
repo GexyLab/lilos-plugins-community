@@ -2,7 +2,7 @@
 
 Libraries and programs of other authors used by the packages of this repository. `npm run build` stops if a library bundled by an app, or a program downloaded by a kernel module, is missing here.
 
-## Bundled in ArduinoIDE (`apps/arduino-ide`)
+## Bundled in ArduinoIDE4LilOS (`apps/arduino-ide`)
 
 The editor is [CodeMirror 6](https://codemirror.net) with its LSP client. These libraries are compiled into `apps/arduino-ide/dist/`.
 
