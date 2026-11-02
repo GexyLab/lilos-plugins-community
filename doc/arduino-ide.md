@@ -24,13 +24,14 @@ Rejected alternatives:
 
 ## What lilOS gives the app
 
-ArduinoIDE4LilOS is an isolated app: it runs in a sandboxed iframe and reaches lilOS through `window.lilos`. It uses three permissions from `app.json`:
+ArduinoIDE4LilOS is an isolated app: it runs in a sandboxed iframe and reaches lilOS through `window.lilos`. It uses four permissions from `app.json`:
 
 | Permission | API | What for |
 |---|---|---|
 | `fs.write:~/Arduino` | `lilos.files.*` | The sketches, one folder per sketch. The user's own libraries are in `~/Arduino/libraries`. |
 | `serial` | `lilos.serial.*` | The serial ports, through Web Serial. |
 | `kernel:arduino` | `lilos.kernel.request`, `lilos.kernel.channel` | The module's HTTP route and WebSocket. |
+| `ui.shortcuts` | `contributes.commands`, `lilos.on('command')` | Verify (Ctrl+R), Upload (Ctrl+U) and Save (Ctrl+S). The user can change the keys in Control Panel. |
 
 The serial ports need some explaining:
 
@@ -38,13 +39,23 @@ The serial ports need some explaining:
 - Bytes travel as `ArrayBuffer`. DTR, RTS and break are JSON messages. `sync` and `done` tell when a write has reached the port, which the board reset needs.
 - The channel closes with the window.
 
-These APIs are lilOS's, documented in its repository: [api.md](https://github.com/GexyLab/lilos/blob/development/doc/sviluppatore/api.md) (`serial`, `kernel.channel`, `kernel.module`, the `window.lilos` bridge, the permissions `serial` and `kernel:<module>`). For kernel modules, `ctx.socket(path, handler)` and `ctx.dataDir` are documented there too. They need lilOS 1.18.0 (SDK 0.11.0).
+Other parts of `lilos` the app uses instead of its own copies:
+
+- `lilos.ui.messageBox`: every dialog (a new sketch or file, the libraries a library needs, board and port). The box is lilOS's, over the window; the app checks the names in `validate`. «Add a port…» calls `lilos.serial.request` from `validate`, after the click in the box, then shows the box again with the new port.
+- `lilos.locale.formatBytes`: the sizes of the setup downloads.
+- `lilos.files.info(ref).ref`: the `~/…` path of a `.ino` file opened from the File Manager (its sketch opens when it is in `~/Arduino`).
+- `lilos.files.write(…, { unique: true })`: a saved serial monitor never overwrites an older one.
+- `lilos.files.mkdir`: gives the folder that is already there.
+
+The shortcuts are commands of the manifest: in the sandbox the bridge catches their keys before the editor. When an administrator runs the app not isolated, it shares lilOS's keyboard: the app keeps Delete, Backspace and the combos the editor used (Ctrl+Z, Ctrl+A…) away from lilOS's own shortcuts. There, Ctrl+U in the editor is CodeMirror's «undo selection», not Upload.
+
+These APIs are lilOS's, documented in its repository: [api.md](https://github.com/GexyLab/lilos/blob/development/doc/sviluppatore/api.md) (`serial`, `kernel.channel`, `kernel.module`, the `window.lilos` bridge, the permissions `serial`, `kernel:<module>` and `ui.shortcuts`). For kernel modules, `ctx.socket(path, handler)` and `ctx.dataDir` are documented there too. The app needs lilOS 1.21.0 (SDK 0.13.0).
 
 ## The app (`src/arduino-ide/`)
 
 | File | What |
 |---|---|
-| `ArduinoApp.js` | The window: sidebar (Sketchbook, Examples, Library manager), toolbar, the Output / Problems / Serial monitor panels, board and port dialog, first-run setup. |
+| `ArduinoApp.js` | The window: sidebar (Sketchbook, Examples, Library manager), toolbar, the Output / Problems / Serial monitor panels, board and port dialog (a `lilos.ui.messageBox`), commands, first-run setup. |
 | `editor.js` | CodeMirror 6 with C++ highlighting. Suggestions come from the language server through `@codemirror/lsp-client`, over a custom transport on the module's WebSocket (full-document sync). |
 | `backend.js` | The WebSocket session with the module: requests `{ id, op, …}`, replies, progress events, LSP messages. |
 | `boards.js` | Uno, Nano and Mega: FQBN, processors, upload protocol and speed, flash page size, signatures, USB ids. |
@@ -121,7 +132,7 @@ Every change to `sketch.js` or `lsp.js` deserves a security review: each fix so 
 
 ## Testing
 
-There are no automated tests in this repository yet. During development, the app was tested end to end in Chromium (Playwright) with a fake Web Serial board that emulates Optiboot and stk500boot, against a real kernel with real arduino-cli compiles. It has **not been tested on a real board, or in real Chrome or Firefox**. In particular, nobody has checked that a real browser lets `requestPort` run after a click inside the sandboxed iframe.
+There are no automated tests in this repository yet. During development, the app was tested end to end in Chromium (Playwright) with a fake Web Serial board that emulates Optiboot and stk500boot, against a real kernel with real arduino-cli compiles. It has **not been tested on a real board, or in real Chrome or Firefox**. In particular, nobody has checked that a real browser still lets `requestPort` run after the click on «Add a port…» in lilOS's message box, a round trip through the sandbox later.
 
 On Windows, `avr-gcc` fails with paths longer than 260 characters. Give the module a short `dataPath` (for example `C:\lilos-arduino`).
 

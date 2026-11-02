@@ -2,13 +2,13 @@
 
 Scrive i programmi (gli *sketch*) per le schede **Arduino Uno, Nano e Mega**, li controlla e li carica sulla scheda. Gli sketch stanno in `~/Arduino`: sono file normali di lilOS, uno sketch per cartella.
 
-All'installazione chiede di poter modificare i file della cartella **Arduino** della tua home, di usare le porte seriali del tuo computer e di usare il modulo **arduino** del kernel.
+All'installazione chiede di poter modificare i file della cartella **Arduino** della tua home, di usare le porte seriali del tuo computer, di usare il modulo **arduino** del kernel e di aggiungere scorciatoie da tastiera.
 
 Sorgenti: [GexyLab/lilos-plugins-community](https://github.com/GexyLab/lilos-plugins-community), cartella `src/arduino-ide`.
 
 ## Cosa serve
 
-- **lilOS dalla 1.18.0.**
+- **lilOS dalla 1.21.0.**
 - **Il browser.** Per caricare gli sketch e usare il monitor seriale servono **Chrome**, **Edge** o **Firefox 151 o più recente**, con lilOS aperto su un indirizzo `https` (o su `localhost`). **Safari non va.** Senza, puoi comunque scrivere e verificare gli sketch.
 - **Il modulo del kernel.** ArduinoIDE4LilOS compila con il modulo **arduino**, nello stesso repository. Se manca, l'app lo dice («Manca il modulo Arduino del kernel»): un amministratore lo installa da AppStore → Kernel e riavvia lilOS.
 - **La scheda collegata al computer in cui usi il browser**, anche se lilOS gira su un altro computer o su un server.
@@ -35,17 +35,19 @@ Premi **Prepara** e aspetta che i passi finiscano.
 ## Scegliere la scheda e la porta
 
 1. Apri **Scheda e porta**.
-2. Scegli la **scheda** (Uno, Nano, Mega) e, dove serve, il **processore**. Per i Nano e i cloni con il vecchio bootloader scegli «ATmega328P, vecchio bootloader».
+2. Scegli la **scheda** (Uno, Nano, Mega): per Nano e Mega l'elenco ha una voce per **processore**. Per i Nano e i cloni con il vecchio bootloader scegli «Arduino Nano · ATmega328P, vecchio bootloader».
 3. Collega la scheda e scegli **Aggiungi una porta…**.
-4. Indica la scheda nell'elenco che mostra il browser.
+4. Indica la scheda nell'elenco che mostra il browser: torni a **Scheda e porta** con la porta già scelta e, se la porta dice che scheda è, anche la scheda.
+5. Premi **OK**.
 
-Il browser lo chiede una volta per porta; poi la porta compare nell'elenco da sola.
+Il browser lo chiede una volta per porta; poi la porta compare nell'elenco da sola. Se scegli una porta senza toccare la scheda, la scheda segue la porta.
 
 ## Verificare e caricare
 
 - **Verifica** (**Ctrl R**) compila lo sketch senza caricarlo. Il pannello **Output** dice quanto spazio usa il programma e quanta memoria usano le variabili, in byte e in percentuale.
 - **Carica** (**Ctrl U**) compila e scrive il programma sulla scheda. Mostra l'avanzamento («Scrivo…», «Verifico…») e, a fine lavoro, una notifica. Non scollegare la scheda finché non finisce.
 - Mentre carichi, il monitor seriale si ferma e poi riapre da solo la porta.
+- **Ctrl R**, **Ctrl U** e **Ctrl S** si cambiano in Pannello di controllo → Usabilità → Scorciatoie, nel gruppo **ArduinoIDE4LilOS**.
 
 ## Il monitor seriale
 

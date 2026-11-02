@@ -1,6 +1,6 @@
 {
   "id": "arduino-ide",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "kind": "local",
   "name": "ArduinoIDE4LilOS",
   "description": "Write, compile and upload sketches for Arduino Uno, Nano and Mega, with suggestions while you type, libraries and the serial monitor. The board is plugged into your computer (Chrome, Edge or Firefox 151+).",
@@ -8,7 +8,7 @@
   "icon": { "glyph": "chip", "color": "#0f7d74" },
   "publisher": { "id": "lilos", "name": "lilOS" },
   "sdk": "2",
-  "lilos": ">=1.18.0",
+  "lilos": ">=1.21.0",
   "entrypoints": {
     "main": {
       "kind": "window",
@@ -17,10 +17,15 @@
       }
     }
   },
-  "permissions": ["fs.write:~/Arduino", "serial", "kernel:arduino"],
+  "permissions": ["fs.write:~/Arduino", "serial", "kernel:arduino", "ui.shortcuts"],
   "contributes": {
     "window": { "width": 1120, "height": 740 },
-    "fileTypes": ["ino"]
+    "fileTypes": ["ino"],
+    "commands": [
+      { "id": "arduino-ide.verify", "label": "Verify the sketch", "keys": ["Ctrl+R"] },
+      { "id": "arduino-ide.upload", "label": "Upload to the board", "keys": ["Ctrl+U"] },
+      { "id": "arduino-ide.save", "label": "Save the sketch", "keys": ["Ctrl+S"] }
+    ]
   },
   "install": [
     { "op": "mkdir", "path": "~/Arduino" }

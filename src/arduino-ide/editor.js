@@ -99,7 +99,6 @@ export class Editors {
   active = null;
   onChange = () => {};          // (path) a file changed (not yet saved)
   onCursor = () => {};          // ({ line, col }) the caret moved
-  onSave = () => {};            // Ctrl+S
 
   constructor(parent, root) {
     this.#parent = parent;
@@ -141,7 +140,7 @@ export class Editors {
       syntaxHighlighting(highlight),
       indentUnit.of('  '),
       EditorState.tabSize.of(2),
-      keymap.of([indentWithTab, { key: 'Mod-s', preventDefault: true, run: () => { this.onSave(); return true; } }]),
+      keymap.of([indentWithTab]),   // Ctrl+S is the app's Save command
       theme,
       marks,
       this.#client ? this.#client.plugin(uri, 'cpp') : autocompletion({ override: [completeFromList(ARDUINO_WORDS)] }),

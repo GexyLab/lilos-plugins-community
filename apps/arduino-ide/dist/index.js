@@ -18158,7 +18158,6 @@ var Px = class {
 	active = null;
 	onChange = () => {};
 	onCursor = () => {};
-	onSave = () => {};
 	constructor(e, t) {
 		this.#e = e, this.#t = t;
 	}
@@ -18204,11 +18203,7 @@ var Px = class {
 			yd(Mx),
 			bu.of("  "),
 			P.tabSize.of(2),
-			Ro.of([vm, {
-				key: "Mod-s",
-				preventDefault: !0,
-				run: () => (this.onSave(), !0)
-			}]),
+			Ro.of([vm]),
 			jx,
 			Ax,
 			this.#r ? this.#r.plugin(e, "cpp") : l_({ override: [Mh(Ox)] }),
@@ -18967,7 +18962,7 @@ var aS = [
 		id: "SerialEcho",
 		text: "// SerialEcho: what you send from the serial monitor comes back, in capitals.\n\nvoid setup() {\n  Serial.begin(9600);\n  Serial.println(\"Ready: write something and press Enter\");\n}\n\nvoid loop() {\n  if (Serial.available()) {\n    String line = Serial.readStringUntil('\\n');\n    line.trim();\n    line.toUpperCase();\n    Serial.print(\"> \");\n    Serial.println(line);\n  }\n}\n"
 	}
-], oS = "\n  :host { display: block; height: 100%; }\n  html, body { height: 100%; margin: 0; }\n  .ard { --teal: #0f7d74; --teal-soft: color-mix(in srgb, #0f7d74 14%, transparent); --mono: \"JetBrains Mono\", ui-monospace, Consolas, monospace;\n    position: relative; box-sizing: border-box; height: 100%; display: flex; flex-direction: column; color: var(--text); background: var(--surface);\n    font: 12.5px/1.4 var(--font, system-ui); outline: none; }\n  .ard *, .ard *::before, .ard *::after { box-sizing: border-box; }\n  .ard [hidden] { display: none !important; }\n  .ard button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }\n  .ard button:disabled { cursor: default; opacity: .55; }\n  .ico { width: 15px; height: 15px; flex: none; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; display: block; }\n  .sp { flex: 1; }\n  .faint { color: var(--faint); }\n  .pad { padding: 8px 10px; }\n  .error { color: var(--danger, #e5484d); }\n\n  .tools { height: 44px; flex: none; display: flex; align-items: center; gap: 6px; padding: 0 10px; border-bottom: 1px solid var(--border); }\n  .rbtn { width: 30px; height: 30px; border-radius: 50% !important; display: grid; place-items: center; background: var(--teal) !important; color: #fff !important; position: relative; }\n  .rbtn .ico { stroke-width: 2.3; }\n  .rbtn:disabled::after { content: \"\"; position: absolute; inset: -4px; border-radius: 50%; border: 2px solid var(--teal-soft); border-top-color: var(--teal); animation: spin .9s linear infinite; }\n  @keyframes spin { to { transform: rotate(360deg); } }\n  .tsep { width: 1px; height: 22px; background: var(--border); margin: 0 4px; }\n  .boardpick { height: 30px; display: flex; align-items: center; gap: 8px; padding: 0 8px 0 10px !important; border: 1px solid var(--border) !important; border-radius: var(--radius-sm, 5px); min-width: 250px; white-space: nowrap; }\n  .boardpick:hover { background: var(--hover) !important; }\n  .boardpick code { font-family: var(--mono); font-size: 11px; color: var(--dim); }\n  .boardpick .chev { margin-left: auto; width: 12px; height: 12px; color: var(--dim); }\n  .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--faint); flex: none; display: inline-block; }\n  .dot.on { background: #30a46c; }\n  .iconbtn { width: 26px; height: 26px; display: grid; place-items: center; border-radius: var(--radius-sm, 5px); color: var(--dim) !important; flex: none; }\n  .iconbtn:hover { background: var(--hover) !important; color: var(--text) !important; }\n  .iconbtn.big { width: 30px; height: 30px; }\n\n  .body { flex: 1; display: flex; min-height: 0; }\n  .act { width: 42px; flex: none; background: var(--side); border-right: 1px solid var(--border); display: flex; flex-direction: column; align-items: center; padding: 6px 0; gap: 4px; }\n  .act button { width: 32px; height: 32px; border-radius: 6px; display: grid; place-items: center; color: var(--dim) !important; }\n  .act button .ico { width: 17px; height: 17px; }\n  .act button:hover { background: var(--hover) !important; }\n  .act button[aria-current] { background: var(--teal-soft) !important; color: var(--teal) !important; }\n  .side { width: 270px; flex: none; border-right: 1px solid var(--border); background: var(--side); display: flex; flex-direction: column; min-height: 0; }\n  .side h6 { margin: 0; font-size: 10.5px; font-weight: 600; color: var(--faint); text-transform: uppercase; letter-spacing: .05em; padding: 10px 10px 4px; display: flex; align-items: center; }\n  .side h6 span { flex: 1; }\n  .list { flex: 1; overflow: auto; padding: 0 6px 6px; }\n  .item { width: 100%; height: 28px; display: flex; align-items: center; gap: 8px; padding: 0 6px !important; border-radius: var(--radius-sm, 5px); text-align: left; }\n  .item:hover { background: var(--hover) !important; }\n  .item.cur { background: var(--teal-soft) !important; color: var(--teal); font-weight: 600; }\n  .item .ico { color: var(--dim); }\n  .item.i1 { padding-left: 22px !important; }\n  .item .nm { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }\n  .group { font-size: 11px; font-weight: 600; color: var(--dim); padding: 10px 6px 4px; }\n  .sub { font-size: 11.5px; padding: 6px 6px 2px; color: var(--text); font-weight: 600; }\n  .foot { margin: 0; padding: 8px 10px; font-size: 11px; color: var(--faint); border-top: 1px solid var(--border); }\n  .search { padding: 6px 8px 8px; display: grid; gap: 6px; border-bottom: 1px solid var(--border); }\n  .libs { flex: 1; overflow: auto; padding: 8px; display: grid; gap: 8px; align-content: start; }\n  .lib { border: 1px solid var(--border); border-radius: 7px; background: var(--surface); padding: 8px 10px; display: grid; gap: 3px; }\n  .lib .t { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }\n  .lib .t small { color: var(--dim); font-size: 11px; }\n  .lib .d { font-size: 11.5px; color: var(--dim); line-height: 1.35; }\n  .lib .a { display: flex; gap: 6px; align-items: center; margin-top: 4px; }\n  .pill { font-size: 10px; font-weight: 700; padding: 1px 5px; border-radius: 3px; background: color-mix(in srgb, #30a46c 16%, transparent); color: #1d6f57; white-space: nowrap; }\n  .pill.up { background: var(--accent-soft); color: var(--accent); }\n  .pill.gray { background: var(--hover); color: var(--dim); margin-left: auto; }\n\n  .field { height: 28px; border: 1px solid var(--border); border-radius: var(--radius-sm, 5px); padding: 0 8px; background: var(--field-bg, var(--surface)); color: var(--text); font: inherit; min-width: 0; }\n  .field:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent-soft); }\n  .field.small { height: 24px; font-size: 11.5px; }\n  .field.grow { flex: 1; }\n  .btn { height: 28px; padding: 0 12px !important; border-radius: var(--radius-sm, 5px); border: 1px solid var(--border) !important; background: var(--surface) !important; display: inline-flex; align-items: center; gap: 6px; font-weight: 500; white-space: nowrap; }\n  .btn:hover:not(:disabled) { background: var(--hover) !important; }\n  .btn.primary { background: var(--teal) !important; border-color: var(--teal) !important; color: #fff !important; }\n  .btn.danger { color: var(--danger, #e5484d) !important; }\n  .btn.small { height: 24px; padding: 0 9px !important; font-size: 11.5px; }\n  .btn[aria-busy=\"true\"]::after { content: \"\"; width: 10px; height: 10px; border-radius: 50%; border: 2px solid currentColor; border-top-color: transparent; animation: spin .8s linear infinite; }\n  .btn .ico { width: 13px; height: 13px; }\n  .row { display: flex; gap: 8px; align-items: center; }\n  .row.end { justify-content: flex-end; }\n  .left { margin-right: auto; }\n\n  .center { flex: 1; display: flex; flex-direction: column; min-width: 0; }\n  .tabs { height: 31px; flex: none; display: flex; align-items: flex-end; gap: 2px; padding: 0 6px; background: var(--chrome); border-bottom: 1px solid var(--border); overflow-x: auto; }\n  .tab { height: 26px; display: flex; align-items: center; gap: 6px; padding: 0 10px; border-radius: 6px 6px 0 0; color: var(--dim); border: 1px solid transparent; border-bottom: 0; font-family: var(--mono); font-size: 11.5px; white-space: nowrap; cursor: pointer; }\n  .tab[aria-selected=\"true\"] { background: var(--surface); color: var(--text); border-color: var(--border); margin-bottom: -1px; height: 27px; }\n  .tab .dot { background: var(--dim); }\n  .tabs .iconbtn { margin-bottom: 2px; }\n  .editors { flex: 1; min-height: 0; position: relative; }\n  .ed-view { position: absolute; inset: 0; }\n  .empty { position: absolute; inset: 0; display: grid; place-content: center; justify-items: center; gap: 10px; color: var(--dim); text-align: center; padding: 20px; }\n\n  .panel { height: 220px; flex: none; border-top: 1px solid var(--border); display: flex; flex-direction: column; }\n  .ptabs { height: 30px; flex: none; display: flex; align-items: center; gap: 2px; padding: 0 6px; border-bottom: 1px solid var(--border); }\n  .ptab { height: 30px; display: flex; align-items: center; gap: 6px; padding: 0 10px !important; color: var(--dim) !important; font-weight: 500; border-bottom: 2px solid transparent !important; }\n  .ptab[aria-selected=\"true\"] { color: var(--text) !important; border-bottom-color: var(--teal) !important; font-weight: 600; }\n  .cnt { font-size: 10px; font-weight: 700; background: color-mix(in srgb, var(--danger, #e5484d) 14%, transparent); color: var(--danger, #e5484d); border-radius: 7px; padding: 0 5px; }\n  .pbody { flex: 1; min-height: 0; display: flex; }\n  .pane { flex: 1; min-width: 0; display: flex; flex-direction: column; }\n  .out { flex: 1; min-height: 0; margin: 0; overflow: auto; font: 11.5px/1.6 var(--mono); padding: 6px 12px; white-space: pre-wrap; word-break: break-word; }\n  .out .ok { color: #30a46c; } .out .err { color: var(--danger, #e5484d); } .out .faint { color: var(--faint); }\n  .memrow { display: flex; gap: 22px; padding: 6px 12px; border-top: 1px solid var(--border); font-size: 11px; color: var(--dim); }\n  .mem { display: flex; align-items: center; gap: 8px; }\n  .mem b { color: var(--text); }\n  .bar { display: block; width: 120px; height: 6px; border-radius: 3px; background: var(--hover); overflow: hidden; }\n  .bar i { display: block; height: 100%; background: var(--teal); }\n  .mem.high .bar i { background: var(--danger, #e5484d); }\n  .montools { display: flex; gap: 6px; align-items: center; padding: 6px 8px; border-bottom: 1px solid var(--border); }\n  .montools .field { height: 26px; }\n  .chip { height: 26px; padding: 0 8px !important; border-radius: var(--radius-sm, 5px); border: 1px solid var(--border) !important; color: var(--dim) !important; white-space: nowrap; }\n  .chip.on { background: var(--teal-soft) !important; color: var(--teal) !important; font-weight: 600; }\n  .mon { flex: 1; min-height: 0; overflow: auto; background: #15171b; color: #d7dae0; font: 11.5px/1.6 var(--mono); padding: 6px 12px; }\n  .mon-line { white-space: pre-wrap; word-break: break-all; }\n  .mon-time { color: #6b7380; margin-right: 10px; }\n  .mon-line.tx .mon-text { color: #6ea8ff; }\n  .mon-line.sys .mon-text { color: #e8c35a; }\n  .mon-line.err .mon-text { color: #ff6b6b; }\n  .probs { flex: 1; overflow: auto; }\n  .prob { width: 100%; display: grid; grid-template-columns: 16px 1fr auto; gap: 8px; align-items: center; padding: 6px 12px !important; border-bottom: 1px solid var(--border) !important; text-align: left; }\n  .prob:hover { background: var(--hover) !important; }\n  .prob .ico.e { color: var(--danger, #e5484d); width: 13px; height: 13px; }\n  .prob .ico.w { color: #d9822b; width: 13px; height: 13px; }\n  .prob code { font-family: var(--mono); font-size: 11px; color: var(--dim); }\n  .fix:not(:empty) { margin: 6px 12px 8px 36px; display: flex; flex-wrap: wrap; align-items: center; gap: 8px; padding: 7px 9px; border: 1px solid color-mix(in srgb, var(--teal) 35%, transparent); background: var(--teal-soft); border-radius: var(--radius-sm, 5px); }\n  .fix small { display: block; color: var(--dim); font-size: 11px; }\n  .fix .btn { margin-left: auto; }\n  .fix .others { flex-basis: 100%; }\n\n  .status { height: 24px; flex: none; display: flex; align-items: center; gap: 14px; padding: 0 12px; font-size: 11px; color: var(--faint); border-top: 1px solid var(--border); background: var(--side); white-space: nowrap; overflow: hidden; }\n\n  .overlay, .modal { position: absolute; inset: 0; z-index: 20; display: grid; place-items: center; background: color-mix(in srgb, var(--surface) 70%, transparent); padding: 20px; }\n  .modal { background: rgba(0,0,0,.25); z-index: 30; }\n  .card, .dialog { width: min(560px, 100%); max-height: 100%; overflow: auto; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; box-shadow: 0 16px 40px -12px rgba(0,0,0,.45); padding: 18px 20px; display: grid; gap: 10px; }\n  .dialog.small { width: min(400px, 100%); }\n  .dialog.wide { width: min(760px, 100%); }\n  .card h2, .dialog h3 { margin: 0; display: flex; align-items: center; gap: 10px; font-size: 15px; }\n  .card h2 .ico { width: 22px; height: 22px; color: var(--teal); }\n  .card p, .dialog p { margin: 0; }\n  .dialog label { display: grid; gap: 4px; color: var(--dim); font-size: 11.5px; }\n  .steps { display: grid; gap: 6px; }\n  .step { display: grid; grid-template-columns: 180px 1fr 110px; gap: 10px; align-items: center; font-size: 12px; }\n  .step .bar { width: 100%; }\n  .step.busy .bar i { width: 40% !important; animation: slide 1.2s ease-in-out infinite; }\n  .step.done .bar i { width: 100% !important; animation: none; background: #30a46c; }\n  .step small { color: var(--faint); text-align: right; }\n  @keyframes slide { 0% { transform: translateX(-100%); } 100% { transform: translateX(250%); } }\n  .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }\n  .cols h5 { margin: 4px 0; font-size: 10.5px; font-weight: 600; color: var(--faint); text-transform: uppercase; letter-spacing: .05em; }\n  .opts { display: grid; gap: 4px; margin-bottom: 8px; }\n  .opt { display: grid !important; grid-template-columns: 14px 1fr; gap: 9px; align-items: center; padding: 6px 8px !important; border-radius: var(--radius-sm, 5px); text-align: left; }\n  .opt:hover { background: var(--hover) !important; }\n  .opt.on { background: var(--teal-soft) !important; }\n  .opt .nm { font-weight: 600; min-width: 0; }\n  .opt .nm small { display: block; font-weight: 400; font-family: var(--mono); font-size: 10.5px; color: var(--dim); }\n  .opt .nm small.txt { font-family: inherit; font-size: 11px; }\n  .radio { width: 14px; height: 14px; border-radius: 50%; border: 1.5px solid var(--faint); }\n  .radio.on { border: 4.5px solid var(--teal); }\n  .deps { border: 1px solid var(--border); border-radius: var(--radius-sm, 5px); }\n  .deps div { display: flex; align-items: center; gap: 6px; padding: 7px 10px; border-bottom: 1px solid var(--border); }\n  .deps div:last-child { border-bottom: 0; }\n  @media (max-width: 760px) { .side { width: 210px; } .cols { grid-template-columns: 1fr; } .boardpick { min-width: 0; } }\n", sS = "~/Arduino", cS = /^[A-Za-z0-9][A-Za-z0-9_.-]{0,62}$/, lS = /^[A-Za-z0-9_][A-Za-z0-9_.-]{0,99}\.(ino|h|hpp|c|cpp|S)$/, uS = /\.(ino|pde|h|hh|hpp|hxx|c|cc|cpp|cxx|s|S|tpp|ipp|txt|md|properties|json)$/, dS = [
+], oS = "\n  :host { display: block; height: 100%; }\n  html, body { height: 100%; margin: 0; }\n  .ard { --teal: #0f7d74; --teal-soft: color-mix(in srgb, #0f7d74 14%, transparent); --mono: \"JetBrains Mono\", ui-monospace, Consolas, monospace;\n    position: relative; box-sizing: border-box; height: 100%; display: flex; flex-direction: column; color: var(--text); background: var(--surface);\n    font: 12.5px/1.4 var(--font, system-ui); outline: none; }\n  .ard *, .ard *::before, .ard *::after { box-sizing: border-box; }\n  .ard [hidden] { display: none !important; }\n  .ard button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }\n  .ard button:disabled { cursor: default; opacity: .55; }\n  .ico { width: 15px; height: 15px; flex: none; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; display: block; }\n  .sp { flex: 1; }\n  .faint { color: var(--faint); }\n  .pad { padding: 8px 10px; }\n  .error { color: var(--danger, #e5484d); }\n\n  .tools { height: 44px; flex: none; display: flex; align-items: center; gap: 6px; padding: 0 10px; border-bottom: 1px solid var(--border); }\n  .rbtn { width: 30px; height: 30px; border-radius: 50% !important; display: grid; place-items: center; background: var(--teal) !important; color: #fff !important; position: relative; }\n  .rbtn .ico { stroke-width: 2.3; }\n  .rbtn:disabled::after { content: \"\"; position: absolute; inset: -4px; border-radius: 50%; border: 2px solid var(--teal-soft); border-top-color: var(--teal); animation: spin .9s linear infinite; }\n  @keyframes spin { to { transform: rotate(360deg); } }\n  .tsep { width: 1px; height: 22px; background: var(--border); margin: 0 4px; }\n  .boardpick { height: 30px; display: flex; align-items: center; gap: 8px; padding: 0 8px 0 10px !important; border: 1px solid var(--border) !important; border-radius: var(--radius-sm, 5px); min-width: 250px; white-space: nowrap; }\n  .boardpick:hover { background: var(--hover) !important; }\n  .boardpick code { font-family: var(--mono); font-size: 11px; color: var(--dim); }\n  .boardpick .chev { margin-left: auto; width: 12px; height: 12px; color: var(--dim); }\n  .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--faint); flex: none; display: inline-block; }\n  .dot.on { background: #30a46c; }\n  .iconbtn { width: 26px; height: 26px; display: grid; place-items: center; border-radius: var(--radius-sm, 5px); color: var(--dim) !important; flex: none; }\n  .iconbtn:hover { background: var(--hover) !important; color: var(--text) !important; }\n  .iconbtn.big { width: 30px; height: 30px; }\n\n  .body { flex: 1; display: flex; min-height: 0; }\n  .act { width: 42px; flex: none; background: var(--side); border-right: 1px solid var(--border); display: flex; flex-direction: column; align-items: center; padding: 6px 0; gap: 4px; }\n  .act button { width: 32px; height: 32px; border-radius: 6px; display: grid; place-items: center; color: var(--dim) !important; }\n  .act button .ico { width: 17px; height: 17px; }\n  .act button:hover { background: var(--hover) !important; }\n  .act button[aria-current] { background: var(--teal-soft) !important; color: var(--teal) !important; }\n  .side { width: 270px; flex: none; border-right: 1px solid var(--border); background: var(--side); display: flex; flex-direction: column; min-height: 0; }\n  .side h6 { margin: 0; font-size: 10.5px; font-weight: 600; color: var(--faint); text-transform: uppercase; letter-spacing: .05em; padding: 10px 10px 4px; display: flex; align-items: center; }\n  .side h6 span { flex: 1; }\n  .list { flex: 1; overflow: auto; padding: 0 6px 6px; }\n  .item { width: 100%; height: 28px; display: flex; align-items: center; gap: 8px; padding: 0 6px !important; border-radius: var(--radius-sm, 5px); text-align: left; }\n  .item:hover { background: var(--hover) !important; }\n  .item.cur { background: var(--teal-soft) !important; color: var(--teal); font-weight: 600; }\n  .item .ico { color: var(--dim); }\n  .item.i1 { padding-left: 22px !important; }\n  .item .nm { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }\n  .group { font-size: 11px; font-weight: 600; color: var(--dim); padding: 10px 6px 4px; }\n  .sub { font-size: 11.5px; padding: 6px 6px 2px; color: var(--text); font-weight: 600; }\n  .foot { margin: 0; padding: 8px 10px; font-size: 11px; color: var(--faint); border-top: 1px solid var(--border); }\n  .search { padding: 6px 8px 8px; display: grid; gap: 6px; border-bottom: 1px solid var(--border); }\n  .libs { flex: 1; overflow: auto; padding: 8px; display: grid; gap: 8px; align-content: start; }\n  .lib { border: 1px solid var(--border); border-radius: 7px; background: var(--surface); padding: 8px 10px; display: grid; gap: 3px; }\n  .lib .t { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }\n  .lib .t small { color: var(--dim); font-size: 11px; }\n  .lib .d { font-size: 11.5px; color: var(--dim); line-height: 1.35; }\n  .lib .a { display: flex; gap: 6px; align-items: center; margin-top: 4px; }\n  .pill { font-size: 10px; font-weight: 700; padding: 1px 5px; border-radius: 3px; background: color-mix(in srgb, #30a46c 16%, transparent); color: #1d6f57; white-space: nowrap; }\n  .pill.up { background: var(--accent-soft); color: var(--accent); }\n\n  .field { height: 28px; border: 1px solid var(--border); border-radius: var(--radius-sm, 5px); padding: 0 8px; background: var(--field-bg, var(--surface)); color: var(--text); font: inherit; min-width: 0; }\n  .field:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent-soft); }\n  .field.small { height: 24px; font-size: 11.5px; }\n  .field.grow { flex: 1; }\n  .btn { height: 28px; padding: 0 12px !important; border-radius: var(--radius-sm, 5px); border: 1px solid var(--border) !important; background: var(--surface) !important; display: inline-flex; align-items: center; gap: 6px; font-weight: 500; white-space: nowrap; }\n  .btn:hover:not(:disabled) { background: var(--hover) !important; }\n  .btn.primary { background: var(--teal) !important; border-color: var(--teal) !important; color: #fff !important; }\n  .btn.danger { color: var(--danger, #e5484d) !important; }\n  .btn.small { height: 24px; padding: 0 9px !important; font-size: 11.5px; }\n  .btn[aria-busy=\"true\"]::after { content: \"\"; width: 10px; height: 10px; border-radius: 50%; border: 2px solid currentColor; border-top-color: transparent; animation: spin .8s linear infinite; }\n  .btn .ico { width: 13px; height: 13px; }\n  .row { display: flex; gap: 8px; align-items: center; }\n  .row.end { justify-content: flex-end; }\n\n  .center { flex: 1; display: flex; flex-direction: column; min-width: 0; }\n  .tabs { height: 31px; flex: none; display: flex; align-items: flex-end; gap: 2px; padding: 0 6px; background: var(--chrome); border-bottom: 1px solid var(--border); overflow-x: auto; }\n  .tab { height: 26px; display: flex; align-items: center; gap: 6px; padding: 0 10px; border-radius: 6px 6px 0 0; color: var(--dim); border: 1px solid transparent; border-bottom: 0; font-family: var(--mono); font-size: 11.5px; white-space: nowrap; cursor: pointer; }\n  .tab[aria-selected=\"true\"] { background: var(--surface); color: var(--text); border-color: var(--border); margin-bottom: -1px; height: 27px; }\n  .tab .dot { background: var(--dim); }\n  .tabs .iconbtn { margin-bottom: 2px; }\n  .editors { flex: 1; min-height: 0; position: relative; }\n  .ed-view { position: absolute; inset: 0; }\n  .empty { position: absolute; inset: 0; display: grid; place-content: center; justify-items: center; gap: 10px; color: var(--dim); text-align: center; padding: 20px; }\n\n  .panel { height: 220px; flex: none; border-top: 1px solid var(--border); display: flex; flex-direction: column; }\n  .ptabs { height: 30px; flex: none; display: flex; align-items: center; gap: 2px; padding: 0 6px; border-bottom: 1px solid var(--border); }\n  .ptab { height: 30px; display: flex; align-items: center; gap: 6px; padding: 0 10px !important; color: var(--dim) !important; font-weight: 500; border-bottom: 2px solid transparent !important; }\n  .ptab[aria-selected=\"true\"] { color: var(--text) !important; border-bottom-color: var(--teal) !important; font-weight: 600; }\n  .cnt { font-size: 10px; font-weight: 700; background: color-mix(in srgb, var(--danger, #e5484d) 14%, transparent); color: var(--danger, #e5484d); border-radius: 7px; padding: 0 5px; }\n  .pbody { flex: 1; min-height: 0; display: flex; }\n  .pane { flex: 1; min-width: 0; display: flex; flex-direction: column; }\n  .out { flex: 1; min-height: 0; margin: 0; overflow: auto; font: 11.5px/1.6 var(--mono); padding: 6px 12px; white-space: pre-wrap; word-break: break-word; }\n  .out .ok { color: #30a46c; } .out .err { color: var(--danger, #e5484d); } .out .faint { color: var(--faint); }\n  .memrow { display: flex; gap: 22px; padding: 6px 12px; border-top: 1px solid var(--border); font-size: 11px; color: var(--dim); }\n  .mem { display: flex; align-items: center; gap: 8px; }\n  .mem b { color: var(--text); }\n  .bar { display: block; width: 120px; height: 6px; border-radius: 3px; background: var(--hover); overflow: hidden; }\n  .bar i { display: block; height: 100%; background: var(--teal); }\n  .mem.high .bar i { background: var(--danger, #e5484d); }\n  .montools { display: flex; gap: 6px; align-items: center; padding: 6px 8px; border-bottom: 1px solid var(--border); }\n  .montools .field { height: 26px; }\n  .chip { height: 26px; padding: 0 8px !important; border-radius: var(--radius-sm, 5px); border: 1px solid var(--border) !important; color: var(--dim) !important; white-space: nowrap; }\n  .chip.on { background: var(--teal-soft) !important; color: var(--teal) !important; font-weight: 600; }\n  .mon { flex: 1; min-height: 0; overflow: auto; background: #15171b; color: #d7dae0; font: 11.5px/1.6 var(--mono); padding: 6px 12px; }\n  .mon-line { white-space: pre-wrap; word-break: break-all; }\n  .mon-time { color: #6b7380; margin-right: 10px; }\n  .mon-line.tx .mon-text { color: #6ea8ff; }\n  .mon-line.sys .mon-text { color: #e8c35a; }\n  .mon-line.err .mon-text { color: #ff6b6b; }\n  .probs { flex: 1; overflow: auto; }\n  .prob { width: 100%; display: grid; grid-template-columns: 16px 1fr auto; gap: 8px; align-items: center; padding: 6px 12px !important; border-bottom: 1px solid var(--border) !important; text-align: left; }\n  .prob:hover { background: var(--hover) !important; }\n  .prob .ico.e { color: var(--danger, #e5484d); width: 13px; height: 13px; }\n  .prob .ico.w { color: #d9822b; width: 13px; height: 13px; }\n  .prob code { font-family: var(--mono); font-size: 11px; color: var(--dim); }\n  .fix:not(:empty) { margin: 6px 12px 8px 36px; display: flex; flex-wrap: wrap; align-items: center; gap: 8px; padding: 7px 9px; border: 1px solid color-mix(in srgb, var(--teal) 35%, transparent); background: var(--teal-soft); border-radius: var(--radius-sm, 5px); }\n  .fix small { display: block; color: var(--dim); font-size: 11px; }\n  .fix .btn { margin-left: auto; }\n  .fix .others { flex-basis: 100%; }\n\n  .status { height: 24px; flex: none; display: flex; align-items: center; gap: 14px; padding: 0 12px; font-size: 11px; color: var(--faint); border-top: 1px solid var(--border); background: var(--side); white-space: nowrap; overflow: hidden; }\n\n  .overlay { position: absolute; inset: 0; z-index: 20; display: grid; place-items: center; background: color-mix(in srgb, var(--surface) 70%, transparent); padding: 20px; }\n  .card { width: min(560px, 100%); max-height: 100%; overflow: auto; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; box-shadow: 0 16px 40px -12px rgba(0,0,0,.45); padding: 18px 20px; display: grid; gap: 10px; }\n  .card h2 { margin: 0; display: flex; align-items: center; gap: 10px; font-size: 15px; }\n  .card h2 .ico { width: 22px; height: 22px; color: var(--teal); }\n  .card p { margin: 0; }\n  .steps { display: grid; gap: 6px; }\n  .step { display: grid; grid-template-columns: 180px 1fr 110px; gap: 10px; align-items: center; font-size: 12px; }\n  .step .bar { width: 100%; }\n  .step.busy .bar i { width: 40% !important; animation: slide 1.2s ease-in-out infinite; }\n  .step.done .bar i { width: 100% !important; animation: none; background: #30a46c; }\n  .step small { color: var(--faint); text-align: right; }\n  @keyframes slide { 0% { transform: translateX(-100%); } 100% { transform: translateX(250%); } }\n  @media (max-width: 760px) { .side { width: 210px; } .boardpick { min-width: 0; } }\n", sS = "~/Arduino", cS = /^[A-Za-z0-9][A-Za-z0-9_.-]{0,62}$/, lS = /^[A-Za-z0-9_][A-Za-z0-9_.-]{0,99}\.(ino|h|hpp|c|cpp|S)$/, uS = /\.(ino|pde|h|hh|hpp|hxx|c|cc|cpp|cxx|s|S|tpp|ipp|txt|md|properties|json)$/, dS = [
 	300,
 	1200,
 	2400,
@@ -19005,8 +19000,7 @@ var aS = [
 	check: "<circle cx=\"12\" cy=\"12\" r=\"9\"/><path d=\"m8 12 3 3 5-6\"/>",
 	trash: "<path d=\"M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3\"/>",
 	save: "<path d=\"M5 3h11l3 3v15H5z\"/><path d=\"M8 3v5h7V3M8 21v-7h8v7\"/>",
-	search: "<circle cx=\"11\" cy=\"11\" r=\"6\"/><path d=\"m20 20-4.5-4.5\"/>",
-	usb: "<path d=\"M12 21V5M9.5 7.5 12 4l2.5 3.5\"/><circle cx=\"12\" cy=\"19\" r=\"1.5\"/><path d=\"M12 15l-4-2.5V10M12 13l4-2.5V8\"/>"
+	search: "<circle cx=\"11\" cy=\"11\" r=\"6\"/><path d=\"m20 20-4.5-4.5\"/>"
 }, hS = (e, t = "ico") => `<svg class="${t}" viewBox="0 0 24 24" aria-hidden="true">${mS[e]}</svg>`;
 function $(e, t = {}, ...n) {
 	let r = document.createElement(e);
@@ -19028,22 +19022,22 @@ function gS({ lilos: e, root: t, args: n }) {
 		class: "rbtn",
 		type: "button",
 		html: hS("verify"),
-		onclick: () => F()
+		onclick: () => ot()
 	}), y = $("button", {
 		class: "rbtn",
 		type: "button",
 		html: hS("upload"),
-		onclick: () => at()
+		onclick: () => ct()
 	}), ee = $("button", {
 		class: "boardpick",
 		type: "button",
-		onclick: () => Qe()
+		onclick: () => tt()
 	}), te = $("button", {
 		class: "iconbtn big",
 		type: "button",
 		html: hS("serial"),
 		onclick: () => {
-			Ee("monitor"), f.open || ot();
+			Ee("monitor"), f.open || lt();
 		}
 	}), b = $("header", { class: "tools" }, v, y, $("span", { class: "tsep" }), ee, $("span", { class: "sp" }), te), x = {}, ne = $("nav", { class: "act" }, ...[
 		"sketchbook",
@@ -19098,7 +19092,7 @@ function gS({ lilos: e, root: t, args: n }) {
 		class: "iconbtn",
 		type: "button",
 		html: hS("save"),
-		onclick: () => lt()
+		onclick: () => ft()
 	}), $("button", {
 		class: "iconbtn",
 		type: "button",
@@ -19117,7 +19111,7 @@ function gS({ lilos: e, root: t, args: n }) {
 	}), oe.append(Ce[e]);
 	C.append(...Object.values(Se));
 	function we() {
-		v.title = `${r("verify")} (Ctrl+R)`, v.setAttribute("aria-label", r("verify")), y.title = `${r("upload")} (Ctrl+U)`, y.setAttribute("aria-label", r("upload")), te.title = r("panel.monitor"), te.setAttribute("aria-label", r("panel.monitor"));
+		v.title = r("verify"), v.setAttribute("aria-label", r("verify")), y.title = r("upload"), y.setAttribute("aria-label", r("upload")), te.title = r("panel.monitor"), te.setAttribute("aria-label", r("panel.monitor"));
 		for (let e of Object.keys(x)) x[e].title = r(`side.${e}`), x[e].setAttribute("aria-label", r(`side.${e}`));
 		Ce.output.textContent = r("panel.output"), Ce.monitor.textContent = r("panel.monitor"), Ce.problems.textContent = r("panel.problems"), m.length && Ce.problems.append($("span", { class: "cnt" }, String(m.length))), O.placeholder = r("monitor.placeholder"), he.replaceChildren(...Object.keys(fS).map((e) => $("option", { value: e }, r(`monitor.ending.${e}`)))), he.value = f.ending, _e.textContent = r("monitor.times"), ve.textContent = r("monitor.follow"), be.children[be.children.length - 2].title = r("monitor.save"), be.children[be.children.length - 1].title = r("monitor.clear"), ye.textContent = f.open ? r("monitor.close") : r("monitor.open"), ae.replaceChildren($("p", {}, r("empty")), $("button", {
 			class: "btn primary",
@@ -19161,7 +19155,7 @@ function gS({ lilos: e, root: t, args: n }) {
 			return ke("missing", String(e.message ?? e));
 		}
 		if (!o.ready) return ke("setup");
-		de.hidden = !0, et();
+		de.hidden = !0, rt();
 	}
 	function ke(t, n = "") {
 		if (de.hidden = !1, t === "missing") {
@@ -19186,26 +19180,20 @@ function gS({ lilos: e, root: t, args: n }) {
 		s.onclick = async () => {
 			s.disabled = !0, s.setAttribute("aria-busy", "true"), c.textContent = "";
 			try {
-				o = await a.call("setup", {}, (e) => {
-					for (let [t, n] of l) t !== e.step && n.row.classList.add("done");
-					let t = u(e.step);
-					e.total ? (t.bar.style.width = `${Math.round(e.done / e.total * 100)}%`, t.row.lastChild.textContent = `${(e.done / 1048576).toFixed(1)} / ${(e.total / 1048576).toFixed(1)} MB`) : t.row.classList.add("busy");
+				o = await a.call("setup", {}, (t) => {
+					for (let [e, n] of l) e !== t.step && n.row.classList.add("done");
+					let n = u(t.step);
+					t.total ? (n.bar.style.width = `${Math.round(t.done / t.total * 100)}%`, n.row.lastChild.textContent = `${e.locale.formatBytes(t.done)} / ${e.locale.formatBytes(t.total)}`) : n.row.classList.add("busy");
 				}), de.hidden = !0, e.ui.notify({
 					text: r("setup.done"),
 					level: "success"
-				}).catch(() => {}), et();
+				}).catch(() => {}), rt();
 			} catch (e) {
 				c.textContent = e.code === "forbidden" ? r("setup.admin") : r("setup.failed", { message: e.message }), s.disabled = !1, s.removeAttribute("aria-busy");
 			}
 		};
 	}
-	async function Ae() {
-		try {
-			await e.files.list(sS);
-		} catch {
-			await e.files.mkdir(sS);
-		}
-	}
+	let Ae = () => e.files.mkdir(sS);
 	async function je() {
 		return await Ae(), (await e.files.list(sS)).filter((e) => e.type === "folder" && e.name !== "libraries" && cS.test(e.name)).map((e) => e.name).sort((e, t) => e.localeCompare(t));
 	}
@@ -19236,7 +19224,7 @@ function gS({ lilos: e, root: t, args: n }) {
 	}
 	async function Pe(t) {
 		try {
-			let n = await e.files.info(t), i = /^~\/Arduino\/([^/]+)\/[^/]+\.ino$/i.exec(n.path ?? "");
+			let n = await e.files.info(t), i = /^~\/Arduino\/([^/]+)\/[^/]+\.ino$/i.exec(n.ref ?? "");
 			if (i && cS.test(i[1])) return Ne(i[1]);
 			let a = n.name.replace(/\.ino$/i, "");
 			if (!cS.test(a)) return A(r("sketch.badName"), "err");
@@ -19259,7 +19247,7 @@ function gS({ lilos: e, root: t, args: n }) {
 		};
 		let r = `${s.name}.ino`, i = [...s.files.keys()].sort((e, t) => e === r ? -1 : t === r ? 1 : e.localeCompare(t));
 		for (let e of i.filter((e) => /\.(ino|h|hpp|c|cpp|S)$/.test(e))) T.open(s.name, e, s.files.get(e).saved);
-		s.files.has(r) && T.show(r), ae.hidden = !0, e.window.setTitle(`ArduinoIDE4LilOS — ${s.name}`).catch(() => {}), e.storage.set("last", s.folder ? s.name : null).catch(() => {}), Ie(), Te(), re.dataset.pane === "sketchbook" && !re.hidden && Ue(), et();
+		s.files.has(r) && T.show(r), ae.hidden = !0, e.window.setTitle(`ArduinoIDE4LilOS — ${s.name}`).catch(() => {}), e.storage.set("last", s.folder ? s.name : null).catch(() => {}), Ie(), Te(), re.dataset.pane === "sketchbook" && !re.hidden && Ue(), rt();
 	}
 	function Ie() {
 		if (S.replaceChildren(), s) {
@@ -19299,7 +19287,7 @@ function gS({ lilos: e, root: t, args: n }) {
 	}, T.onCursor = ({ line: e, col: t }) => Te(`${s?.name ?? ""} · ${T.active ?? ""} · ${r("status.position", {
 		line: e,
 		col: t
-	})}`), T.onSave = () => Le().catch((e) => A(e.message, "err"));
+	})}`);
 	async function Le() {
 		if (clearTimeout(g), !s) return;
 		let t = !1;
@@ -19310,36 +19298,18 @@ function gS({ lilos: e, root: t, args: n }) {
 		t && (Ie(), T.lsp && a?.call("lspSync", { files: ze() }).catch(() => {}));
 	}
 	let Re = () => Le().catch((e) => A(r("sketch.saveFailed", { message: e.message }), "err")), ze = () => Object.fromEntries([...s.files.keys()].map((e) => [e, T.text(e) ?? s.files.get(e).saved]));
-	async function j(e, t, n = "", a = () => null) {
-		return new Promise((o) => {
-			let s = $("input", {
-				class: "field",
-				type: "text",
-				value: n,
-				spellcheck: "false"
-			}), c = $("p", { class: "error" }), l = $("button", {
-				class: "btn primary",
-				type: "button"
-			}, r("ok")), u = (e) => {
-				f.remove(), o(e);
-			}, d = () => {
-				let e = s.value.trim(), t = a(e);
-				t ? c.textContent = t : u(e);
-			};
-			l.onclick = d, s.onkeydown = (e) => {
-				e.key === "Enter" && (e.preventDefault(), d()), e.key === "Escape" && u(null), e.stopPropagation();
-			};
-			let f = $("div", { class: "modal" }, $("div", {
-				class: "dialog small",
-				role: "dialog",
-				"aria-label": e
-			}, $("h3", {}, e), $("label", {}, t, s), c, $("div", { class: "row end" }, $("button", {
-				class: "btn",
-				type: "button",
-				onclick: () => u(null)
-			}, r("cancel")), l)));
-			i.append(f), s.focus(), s.select();
+	async function j(t, n, r = "", i = () => null) {
+		let { button: a, values: o } = await e.ui.messageBox({
+			title: t,
+			fields: [{
+				name: "name",
+				label: n,
+				value: r
+			}],
+			buttons: ["cancel", "ok"],
+			validate: (e) => i(String(e.name ?? "").trim())
 		});
+		return a === "ok" ? String(o.name ?? "").trim() : null;
 	}
 	async function M(e) {
 		let t = new Set((await je()).map((e) => e.toLowerCase()));
@@ -19489,51 +19459,45 @@ function gS({ lilos: e, root: t, args: n }) {
 			file: n
 		})));
 	}
-	async function N(e, t) {
-		let n = (await a.call("libDeps", {
-			name: e,
-			version: t
-		})).filter((t) => t.name !== e && t.installed !== t.version), o = !0;
-		if (n.length) {
-			let a = await new Promise((a) => {
-				let o = (e) => {
-					s.remove(), a(e);
-				}, s = $("div", { class: "modal" }, $("div", {
-					class: "dialog",
-					role: "dialog",
-					"aria-label": r("deps.title")
-				}, $("h3", {}, r("deps.title")), $("p", {}, r("deps.text", {
-					name: e,
-					version: t,
-					count: n.length
-				})), $("div", { class: "deps" }, ...n.map((e) => $("div", {}, $("b", {}, e.name), ` ${e.version}`, $("span", { class: "pill gray" }, e.installed ? r("deps.updateFrom", { version: e.installed }) : r("deps.new"))))), $("div", { class: "row end" }, $("button", {
-					class: "btn left",
-					type: "button",
-					onclick: () => o("only")
-				}, r("deps.only")), $("button", {
-					class: "btn",
-					type: "button",
-					onclick: () => o(null)
-				}, r("cancel")), $("button", {
-					class: "btn primary",
-					type: "button",
-					onclick: () => o("all")
-				}, r("deps.all")))));
-				i.append(s);
+	async function N(t, n) {
+		let i = (await a.call("libDeps", {
+			name: t,
+			version: n
+		})).filter((e) => e.name !== t && e.installed !== e.version), o = !0;
+		if (i.length) {
+			let a = i.map((e) => `• ${e.name} ${e.version} (${e.installed ? r("deps.updateFrom", { version: e.installed }) : r("deps.new")})`), { button: s } = await e.ui.messageBox({
+				title: r("deps.title"),
+				message: `${r("deps.text", {
+					name: t,
+					version: n,
+					count: i.length
+				})}\n\n${a.join("\n")}`,
+				buttons: [
+					{
+						value: "only",
+						label: r("deps.only")
+					},
+					"cancel",
+					{
+						value: "all",
+						label: r("deps.all"),
+						primary: !0
+					}
+				]
 			});
-			if (!a) return !1;
-			o = a === "all";
+			if (s !== "only" && s !== "all") return !1;
+			o = s === "all";
 		}
 		return A(r("libs.installing", {
-			name: e,
-			version: t
+			name: t,
+			version: n
 		})), await a.call("libInstall", {
-			name: e,
-			version: t,
+			name: t,
+			version: n,
 			deps: o
 		}), A(r("libs.installedOk", {
-			name: e,
-			version: t
+			name: t,
+			version: n
 		}), "ok"), !0;
 	}
 	let Je = (e) => {
@@ -19567,101 +19531,100 @@ function gS({ lilos: e, root: t, args: n }) {
 		if (t === c) return;
 		c = t, e.storage.set("board", c).catch(() => {});
 		let n = l.find((e) => e.id === u);
-		n && !tS(n) && eS(n) && (d[eS(n)] = c, e.storage.set("portBoards", d).catch(() => {})), Ye(), Te(), et();
+		n && !tS(n) && eS(n) && (d[eS(n)] = c, e.storage.set("portBoards", d).catch(() => {})), Ye(), Te(), rt();
 	}
-	function Qe() {
-		let t = nS(c) ?? {
-			board: Qx[0],
-			cpu: ""
-		}, n = u, a = $("div", { class: "opts" }), o = $("div", { class: "opts" }), s = $("div", { class: "opts" }), f = $("p", { class: "faint" }), p = () => {
-			a.replaceChildren(...Qx.map((e) => $("button", {
-				class: `opt${e === t.board ? " on" : ""}`,
-				type: "button",
-				role: "radio",
-				"aria-checked": String(e === t.board),
-				onclick: () => {
-					t = {
-						board: e,
-						cpu: e.default ?? ""
-					}, p();
+	let Qe = (e) => {
+		let t = eS(e), n = tS(e);
+		return n ? n.name : d[t] ? r("port.remembered", { board: nS(d[t])?.board.name ?? "" }) : $x[t] ? r("port.generic", { chip: $x[t] }) : r("port.unknown");
+	}, $e = (e) => {
+		let t = tS(e);
+		return t ? rS(t, t.default ?? "") : d[eS(e)] ?? null;
+	}, et = !1;
+	async function tt() {
+		if (!et) {
+			et = !0;
+			try {
+				await Xe();
+				let t = nS(c) ?? {
+					board: Qx[0],
+					cpu: Qx[0].default ?? ""
+				}, n = rS(t.board, t.cpu), i = u ?? "", a = null, o = Qx.flatMap((e) => {
+					let t = Object.keys(e.cpus).filter(Boolean);
+					return t.length ? t.map((t) => ({
+						value: rS(e, t),
+						label: `${e.name} · ${r(`cpu.${t}`)}`
+					})) : [{
+						value: rS(e, ""),
+						label: e.name
+					}];
+				});
+				for (;;) {
+					let t = {
+						board: n,
+						port: i
+					}, { button: s, values: c } = await e.ui.messageBox({
+						title: r("board.title"),
+						width: 460,
+						fields: [{
+							name: "board",
+							type: "select",
+							label: r("board.board"),
+							value: n,
+							options: o,
+							hint: r("board.only")
+						}, {
+							name: "port",
+							type: "select",
+							label: r("board.port"),
+							value: i,
+							options: [{
+								value: "",
+								label: r("port.noneOption")
+							}, ...l.map((e) => ({
+								value: e.id,
+								label: `${eS(e) ?? r("port.serial")} · ${Qe(e)}`
+							}))],
+							hint: _.value ? l.length ? r("board.where") : r("port.noneYet") : r("serial.unsupported")
+						}],
+						buttons: [
+							..._.value ? [{
+								value: "add",
+								label: r("port.add")
+							}] : [],
+							"cancel",
+							"ok"
+						],
+						default: "ok",
+						validate: async (t, n) => {
+							if (n !== "add") return !0;
+							try {
+								a = await e.serial.request({ filters: [] });
+							} catch (e) {
+								return e.message;
+							}
+							return !!a;
+						}
+					});
+					if (s === "add" && a) {
+						await Xe(), i = a.id, n = $e(a) ?? c.board, a = null;
+						continue;
+					}
+					if (s !== "ok") return;
+					let f = l.find((e) => e.id === c.port) ?? null;
+					n = c.board, f && c.port !== t.port && c.board === t.board && (n = $e(f) ?? n), u = f ? f.id : null, f && !tS(f) && eS(f) && (d[eS(f)] = n, e.storage.set("portBoards", d).catch(() => {})), P(n), Ye(), Te();
+					return;
 				}
-			}, $("span", { class: `radio${e === t.board ? " on" : ""}` }), $("span", { class: "nm" }, e.name, $("small", {}, e.fqbn)))));
-			let e = Object.keys(t.board.cpus).filter(Boolean);
-			o.replaceChildren(...e.length ? [$("h5", {}, r("board.cpu")), ...e.map((e) => $("button", {
-				class: `opt${e === t.cpu ? " on" : ""}`,
-				type: "button",
-				role: "radio",
-				"aria-checked": String(e === t.cpu),
-				onclick: () => {
-					t = {
-						...t,
-						cpu: e
-					}, p();
-				}
-			}, $("span", { class: `radio${e === t.cpu ? " on" : ""}` }), $("span", { class: "nm" }, r(`cpu.${e}`), $("small", {}, `cpu=${e}`))))] : []), s.replaceChildren(...l.map((e) => $("button", {
-				class: `opt${e.id === n ? " on" : ""}`,
-				type: "button",
-				role: "radio",
-				"aria-checked": String(e.id === n),
-				onclick: () => {
-					n = e.id;
-					let r = tS(e), i = d[eS(e)], a = r ? rS(r, r.default ?? "") : i;
-					a && (t = nS(a) ?? t), p();
-				}
-			}, $("span", { class: `radio${e.id === n ? " on" : ""}` }), $("span", { class: "nm" }, eS(e) ?? r("port.serial"), $("small", { class: "txt" }, tS(e) ? tS(e).name : d[eS(e)] ? r("port.remembered", { board: nS(d[eS(e)])?.board.name ?? "" }) : $x[eS(e)] ? r("port.generic", { chip: $x[eS(e)] }) : r("port.unknown")))))), l.length || s.append($("p", { class: "faint" }, _.value ? r("port.noneYet") : r("serial.unsupported")));
-		}, m = $("button", {
-			class: "btn",
-			type: "button",
-			html: hS("usb"),
-			disabled: !_.value,
-			onclick: async () => {
-				try {
-					let r = await e.serial.request({ filters: [] });
-					if (!r) return;
-					await Xe(), n = r.id;
-					let i = tS(r);
-					i && (t = {
-						board: i,
-						cpu: i.default ?? ""
-					}), p();
-				} catch (e) {
-					f.textContent = e.message;
-				}
+			} finally {
+				et = !1;
 			}
-		});
-		m.append(r("port.add"));
-		let h = (r) => {
-			if (r) {
-				let r = l.find((e) => e.id === n);
-				u = r ? r.id : null, r && !tS(r) && eS(r) && (d[eS(r)] = rS(t.board, t.cpu), e.storage.set("portBoards", d).catch(() => {})), P(rS(t.board, t.cpu)), Ye(), Te();
-			}
-			g.remove();
-		}, g = $("div", {
-			class: "modal",
-			onkeydown: (e) => {
-				e.key === "Escape" && h(!1), e.stopPropagation();
-			}
-		}, $("div", {
-			class: "dialog wide",
-			role: "dialog",
-			"aria-label": r("board.title")
-		}, $("h3", {}, r("board.title")), $("div", { class: "cols" }, $("div", {}, $("h5", {}, r("board.board")), a, o, $("p", { class: "faint" }, r("board.only"))), $("div", {}, $("h5", {}, r("board.ports")), s, m, $("p", { class: "faint" }, r("board.where")), f)), $("div", { class: "row end" }, $("button", {
-			class: "btn",
-			type: "button",
-			onclick: () => h(!1)
-		}, r("cancel")), $("button", {
-			class: "btn primary",
-			type: "button",
-			onclick: () => h(!0)
-		}, r("ok")))));
-		i.append(g), p(), Xe().then(p);
+		}
 	}
-	let $e = null;
-	async function et() {
+	let nt = null;
+	async function rt() {
 		if (!a || !o?.ready || !s) return;
 		let e = `${s.name}|${c}`;
-		if ($e !== e) {
-			if ($e = e, T.disconnect(), !o.lsp) T.rebuild(s.name), Te();
+		if (nt !== e) {
+			if (nt = e, T.disconnect(), !o.lsp) T.rebuild(s.name), Te();
 			else {
 				try {
 					await a.call("lspStart", {
@@ -19678,7 +19641,7 @@ function gS({ lilos: e, root: t, args: n }) {
 			}
 		}
 	}
-	async function tt() {
+	async function F() {
 		let t = {};
 		try {
 			let n = async (r, i, a) => {
@@ -19691,10 +19654,10 @@ function gS({ lilos: e, root: t, args: n }) {
 		} catch {}
 		return t;
 	}
-	function nt(e) {
+	function it(e) {
 		p = e, v.disabled = y.disabled = e;
 	}
-	async function rt() {
+	async function at() {
 		if (!s) return A(r("noSketch"), "err"), null;
 		if (!a || !o?.ready) return A(r("kernel.notReady"), "err"), null;
 		await Re(), fe.replaceChildren(), pe.hidden = !0, Ee("output");
@@ -19711,13 +19674,13 @@ function gS({ lilos: e, root: t, args: n }) {
 					name: s.name,
 					files: ze()
 				},
-				libraries: await tt()
+				libraries: await F()
 			});
 		} catch (e) {
 			return A(e.message, "err"), null;
 		}
 		let i = n.output.split(/\r?\n/).filter((e) => !/^(Sketch uses|Global variables use) /.test(e)).join("\n").trimEnd();
-		if (i.trim() && A(i), it(n.diagnostics), !n.success) return A(r("compile.failed"), "err"), m.some((e) => e.severity === "error") && Ee("problems"), null;
+		if (i.trim() && A(i), st(n.diagnostics), !n.success) return A(r("compile.failed"), "err"), m.some((e) => e.severity === "error") && Ee("problems"), null;
 		let l = n.sizes.find((e) => e.name === "text"), u = n.sizes.find((e) => e.name === "data");
 		return l && A(r("compile.flash", {
 			size: l.size,
@@ -19733,17 +19696,17 @@ function gS({ lilos: e, root: t, args: n }) {
 			return $("span", { class: `mem${n > 90 ? " high" : ""}` }, e, $("span", { class: "bar" }, $("i", { style: `width:${Math.min(100, n)}%` })), $("b", {}, `${n}%`));
 		})), n;
 	}
-	async function F() {
+	async function ot() {
 		if (!p) {
-			nt(!0);
+			it(!0);
 			try {
-				await rt();
+				await at();
 			} finally {
-				nt(!1);
+				it(!1);
 			}
 		}
 	}
-	function it(e) {
+	function st(e) {
 		m = (e ?? []).filter((e) => e.severity !== "note"), we();
 		let t = {};
 		for (let e of m) s?.files.has(e.file) && (t[e.file] ??= []).push(e);
@@ -19769,7 +19732,7 @@ function gS({ lilos: e, root: t, args: n }) {
 					onclick: async (e) => {
 						e.currentTarget.disabled = !0;
 						try {
-							await N(t.name, t.version) && await F();
+							await N(t.name, t.version) && await ot();
 						} catch (e) {
 							A(e.message, "err");
 						}
@@ -19778,14 +19741,14 @@ function gS({ lilos: e, root: t, args: n }) {
 			}).catch(() => {}), $("div", {}, t, i);
 		}) : [$("p", { class: "faint pad" }, r("problems.none"))]);
 	}
-	async function at() {
+	async function ct() {
 		if (p) return;
 		if (!_.value) {
 			A(r("serial.unsupported"), "err"), Ee("output");
 			return;
 		}
 		if (!u) {
-			Qe();
+			tt();
 			return;
 		}
 		let t = iS(c);
@@ -19793,13 +19756,13 @@ function gS({ lilos: e, root: t, args: n }) {
 			A(r("upload.unknownBoard"), "err");
 			return;
 		}
-		nt(!0);
+		it(!0);
 		let n = null, i = f.open;
 		try {
-			let i = await rt();
+			let i = await at();
 			if (!i?.hex) return;
 			let a = Yx(i.hex, { max: t.flash + 8192 });
-			f.open && (await st({ quiet: !0 }), D.note(r("monitor.paused"))), A(r("upload.start", {
+			f.open && (await ut({ quiet: !0 }), D.note(r("monitor.paused"))), A(r("upload.start", {
 				port: Je(l.find((e) => e.id === u) ?? {}),
 				speed: t.speed
 			}), "faint"), n = new Ix(await e.serial.open(u, { baudRate: t.speed }));
@@ -19826,13 +19789,13 @@ function gS({ lilos: e, root: t, args: n }) {
 				level: "error"
 			}).catch(() => {});
 		} finally {
-			n && (n.close(), await Lx(150)), nt(!1), Te(), i && (await ot(), D.note(r("monitor.resumed")));
+			n && (n.close(), await Lx(150)), it(!1), Te(), i && (await lt(), D.note(r("monitor.resumed")));
 		}
 	}
-	async function ot() {
+	async function lt() {
 		if (!f.open) {
 			if (!_.value) D.note(r("serial.unsupported"));
-			else if (!u) Qe();
+			else if (!u) tt();
 			else {
 				try {
 					let t = new Ix(await e.serial.open(u, { baudRate: f.baud }));
@@ -19857,7 +19820,7 @@ function gS({ lilos: e, root: t, args: n }) {
 			}
 		}
 	}
-	async function st({ quiet: e = !1 } = {}) {
+	async function ut({ quiet: e = !1 } = {}) {
 		let t = f.link;
 		f = {
 			...f,
@@ -19865,8 +19828,8 @@ function gS({ lilos: e, root: t, args: n }) {
 			open: !1
 		}, t && (t.close(), await Lx(150)), e || D.note(r("monitor.closed")), we();
 	}
-	ye.onclick = () => f.open ? st() : ot(), ge.onchange = async () => {
-		f.baud = Number(ge.value), e.storage.set("baud", f.baud).catch(() => {}), f.open && (await st({ quiet: !0 }), await ot());
+	ye.onclick = () => f.open ? ut() : lt(), ge.onchange = async () => {
+		f.baud = Number(ge.value), e.storage.set("baud", f.baud).catch(() => {}), f.open && (await ut({ quiet: !0 }), await lt());
 	}, he.onchange = () => {
 		f.ending = he.value, e.storage.set("ending", f.ending).catch(() => {});
 	}, O.onkeydown = (e) => {
@@ -19880,29 +19843,35 @@ function gS({ lilos: e, root: t, args: n }) {
 			D.note(e.message, "err");
 		}
 	};
-	let ct = (e, t) => {
+	let dt = (e, t) => {
 		let n = e.getAttribute("aria-pressed") !== "true";
 		e.setAttribute("aria-pressed", String(n)), e.classList.toggle("on", n), D[t] = n, t === "follow" && n && (me.scrollTop = me.scrollHeight);
 	};
-	_e.onclick = () => ct(_e, "times"), ve.onclick = () => ct(ve, "follow"), me.addEventListener("follow", (e) => {
+	_e.onclick = () => dt(_e, "times"), ve.onclick = () => dt(ve, "follow"), me.addEventListener("follow", (e) => {
 		ve.setAttribute("aria-pressed", String(e.detail)), ve.classList.toggle("on", e.detail);
 	});
-	async function lt() {
-		let t = (/* @__PURE__ */ new Date()).toISOString().slice(0, 19).replace("T", " ").replace(/:/g, "."), n = `${s?.folder ?? sS}/monitor ${t}.txt`;
+	async function ft() {
+		let t = (/* @__PURE__ */ new Date()).toISOString().slice(0, 19).replace("T", " ").replace(/:/g, ".");
 		try {
-			await Ae(), await e.files.write(n, D.text()), D.note(r("monitor.saved", { path: n }));
+			await Ae();
+			let n = await e.files.write(`${s?.folder ?? sS}/monitor ${t}.txt`, D.text(), { unique: !0 });
+			D.note(r("monitor.saved", { path: n.ref }));
 		} catch (e) {
 			D.note(e.message, "err");
 		}
 	}
+	let pt = {
+		"arduino-ide.verify": () => ot(),
+		"arduino-ide.upload": () => ct(),
+		"arduino-ide.save": () => Re()
+	}, mt = [e.on("command", (e) => pt[e]?.())];
 	i.addEventListener("keydown", (e) => {
-		let t = e.ctrlKey || e.metaKey;
-		t && !e.shiftKey && !e.altKey && (e.key === "r" || e.key === "R") ? (e.preventDefault(), e.stopPropagation(), F()) : t && !e.shiftKey && !e.altKey && (e.key === "u" || e.key === "U") ? (e.preventDefault(), e.stopPropagation(), at()) : t && !e.shiftKey && !e.altKey && (e.key === "s" || e.key === "S") ? (e.preventDefault(), e.stopPropagation(), Re()) : (t || e.key === "Delete" || e.key === "Backspace") && e.stopPropagation();
+		(e.key === "Delete" || e.key === "Backspace" || (e.ctrlKey || e.metaKey) && e.defaultPrevented) && e.stopPropagation();
 	});
-	let ut = [], dt = (e) => {
+	let ht = (e) => {
 		/Request timed out|non-existent request/.test(String(e.reason?.message ?? e.reason ?? "")) && e.preventDefault();
 	};
-	return addEventListener("unhandledrejection", dt), ut.push(() => removeEventListener("unhandledrejection", dt)), (async () => {
+	return addEventListener("unhandledrejection", ht), mt.push(() => removeEventListener("unhandledrejection", ht)), (async () => {
 		we(), Ee("output"), re.hidden = !0;
 		try {
 			_.value = await e.serial.supported();
@@ -19916,11 +19885,11 @@ function gS({ lilos: e, root: t, args: n }) {
 			"ending",
 			"last"
 		].map((t) => e.storage.get(t).catch(() => null)));
-		typeof t == "string" && nS(t) && (c = t), i && typeof i == "object" && (d = Object.fromEntries(Object.entries(i).filter(([e, t]) => /^[0-9a-f]{4}:[0-9a-f]{4}$/.test(e) && nS(t)))), dS.includes(a) && (f.baud = a), Object.hasOwn(fS, o ?? "") && (f.ending = o), ge.value = String(f.baud), we(), _.value || A(r("serial.unsupported"), "faint"), ut.push(e.on("serial", () => Xe())), ut.push(e.on("locale", () => {
+		typeof t == "string" && nS(t) && (c = t), i && typeof i == "object" && (d = Object.fromEntries(Object.entries(i).filter(([e, t]) => /^[0-9a-f]{4}:[0-9a-f]{4}$/.test(e) && nS(t)))), dS.includes(a) && (f.baud = a), Object.hasOwn(fS, o ?? "") && (f.ending = o), ge.value = String(f.baud), we(), _.value || A(r("serial.unsupported"), "faint"), mt.push(e.on("serial", () => Xe())), mt.push(e.on("locale", () => {
 			we(), Ie();
 		})), await Xe(), await Oe(), n?.file ? await Pe(n.file) : typeof l == "string" && cS.test(l) && await Ne(l).catch(() => {}), s || De("sketchbook");
 	})().catch((e) => A(e.message, "err")), () => {
-		h = !0, Le().catch(() => {}), ut.forEach((e) => {
+		h = !0, Le().catch(() => {}), mt.forEach((e) => {
 			try {
 				e?.();
 			} catch {}

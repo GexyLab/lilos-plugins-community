@@ -45,7 +45,6 @@ const ICONS = {
   trash: '<path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/>',
   save: '<path d="M5 3h11l3 3v15H5z"/><path d="M8 3v5h7V3M8 21v-7h8v7"/>',
   search: '<circle cx="11" cy="11" r="6"/><path d="m20 20-4.5-4.5"/>',
-  usb: '<path d="M12 21V5M9.5 7.5 12 4l2.5 3.5"/><circle cx="12" cy="19" r="1.5"/><path d="M12 15l-4-2.5V10M12 13l4-2.5V8"/>',
 };
 const ico = (name, cls = 'ico') => `<svg class="${cls}" viewBox="0 0 24 24" aria-hidden="true">${ICONS[name]}</svg>`;
 
@@ -135,9 +134,9 @@ export function main({ lilos, root, args }) {
 
   // ---------- Texts ----------
   function texts() {
-    verifyBtn.title = `${t('verify')} (Ctrl+R)`;
+    verifyBtn.title = t('verify');
     verifyBtn.setAttribute('aria-label', t('verify'));
-    uploadBtn.title = `${t('upload')} (Ctrl+U)`;
+    uploadBtn.title = t('upload');
     uploadBtn.setAttribute('aria-label', t('upload'));
     monitorBtn.title = t('panel.monitor');
     monitorBtn.setAttribute('aria-label', t('panel.monitor'));
@@ -245,7 +244,7 @@ export function main({ lilos, root, args }) {
         status = await backend.call('setup', {}, p => {
           for (const [s, r] of steps) if (s !== p.step) r.row.classList.add('done');
           const r = stepRow(p.step);
-          if (p.total) { r.bar.style.width = `${Math.round((p.done / p.total) * 100)}%`; r.row.lastChild.textContent = `${(p.done / 1048576).toFixed(1)} / ${(p.total / 1048576).toFixed(1)} MB`; }
+          if (p.total) { r.bar.style.width = `${Math.round((p.done / p.total) * 100)}%`; r.row.lastChild.textContent = `${lilos.locale.formatBytes(p.done)} / ${lilos.locale.formatBytes(p.total)}`; }
           else r.row.classList.add('busy');
         });
         overlay.hidden = true;
@@ -260,9 +259,7 @@ export function main({ lilos, root, args }) {
   }
 
   // ---------- Sketches ----------
-  async function ensureRoot() {
-    try { await lilos.files.list(ROOT); } catch { await lilos.files.mkdir(ROOT); }
-  }
+  const ensureRoot = () => lilos.files.mkdir(ROOT);   // the folder that is there, or a new one
 
   async function listSketches() {
     await ensureRoot();
@@ -301,7 +298,7 @@ export function main({ lilos, root, args }) {
   async function openFile(id) {
     try {
       const info = await lilos.files.info(id);
-      const m = /^~\/Arduino\/([^/]+)\/[^/]+\.ino$/i.exec(info.path ?? '');
+      const m = /^~\/Arduino\/([^/]+)\/[^/]+\.ino$/i.exec(info.ref ?? '');
       if (m && NAME.test(m[1])) return openSketch(m[1]);
       const name = info.name.replace(/\.ino$/i, '');
       if (!NAME.test(name)) return say(t('sketch.badName'), 'err');
@@ -351,7 +348,6 @@ export function main({ lilos, root, args }) {
     autosaveTimer = setTimeout(() => save().catch(() => {}), AUTOSAVE);
   };
   editors.onCursor = ({ line, col }) => drawStatus(`${sketch?.name ?? ''} · ${editors.active ?? ''} · ${t('status.position', { line, col })}`);
-  editors.onSave = () => save().catch(err => say(err.message, 'err'));
 
   async function save() {
     clearTimeout(autosaveTimer);
@@ -375,22 +371,13 @@ export function main({ lilos, root, args }) {
 
   const currentFiles = () => Object.fromEntries([...sketch.files.keys()].map(p => [p, editors.text(p) ?? sketch.files.get(p).saved]));
 
+  /** A name to fill in, in lilOS's message box; check(name) → what is wrong with it, or null. The name, or null. */
   async function ask(title, label, value = '', check = () => null) {
-    return new Promise(resolve => {
-      const input = h('input', { class: 'field', type: 'text', value, spellcheck: 'false' });
-      const error = h('p', { class: 'error' });
-      const ok = h('button', { class: 'btn primary', type: 'button' }, t('ok'));
-      const done = v => { dlg.remove(); resolve(v); };
-      const submit = () => { const v = input.value.trim(); const problem = check(v); if (problem) { error.textContent = problem; return; } done(v); };
-      ok.onclick = submit;
-      input.onkeydown = e => { if (e.key === 'Enter') { e.preventDefault(); submit(); } if (e.key === 'Escape') done(null); e.stopPropagation(); };
-      const dlg = h('div', { class: 'modal' }, h('div', { class: 'dialog small', role: 'dialog', 'aria-label': title },
-        h('h3', {}, title), h('label', {}, label, input), error,
-        h('div', { class: 'row end' }, h('button', { class: 'btn', type: 'button', onclick: () => done(null) }, t('cancel')), ok)));
-      box.append(dlg);
-      input.focus();
-      input.select();
+    const { button, values } = await lilos.ui.messageBox({
+      title, fields: [{ name: 'name', label, value }], buttons: ['cancel', 'ok'],
+      validate: v => check(String(v.name ?? '').trim()),
     });
+    return button === 'ok' ? String(values.name ?? '').trim() : null;
   }
 
   async function uniqueName(base) {
@@ -538,21 +525,14 @@ export function main({ lilos, root, args }) {
     const deps = (await backend.call('libDeps', { name, version })).filter(d => d.name !== name && d.installed !== d.version);
     let withDeps = true;
     if (deps.length) {
-      const choice = await new Promise(resolve => {
-        const done = v => { dlg.remove(); resolve(v); };
-        const dlg = h('div', { class: 'modal' }, h('div', { class: 'dialog', role: 'dialog', 'aria-label': t('deps.title') },
-          h('h3', {}, t('deps.title')),
-          h('p', {}, t('deps.text', { name, version, count: deps.length })),
-          h('div', { class: 'deps' }, ...deps.map(d => h('div', {}, h('b', {}, d.name), ` ${d.version}`,
-            h('span', { class: 'pill gray' }, d.installed ? t('deps.updateFrom', { version: d.installed }) : t('deps.new'))))),
-          h('div', { class: 'row end' },
-            h('button', { class: 'btn left', type: 'button', onclick: () => done('only') }, t('deps.only')),
-            h('button', { class: 'btn', type: 'button', onclick: () => done(null) }, t('cancel')),
-            h('button', { class: 'btn primary', type: 'button', onclick: () => done('all') }, t('deps.all')))));
-        box.append(dlg);
+      const list = deps.map(d => `• ${d.name} ${d.version} (${d.installed ? t('deps.updateFrom', { version: d.installed }) : t('deps.new')})`);
+      const { button } = await lilos.ui.messageBox({
+        title: t('deps.title'),
+        message: `${t('deps.text', { name, version, count: deps.length })}\n\n${list.join('\n')}`,
+        buttons: [{ value: 'only', label: t('deps.only') }, 'cancel', { value: 'all', label: t('deps.all'), primary: true }],
       });
-      if (!choice) return false;
-      withDeps = choice === 'all';
+      if (button !== 'only' && button !== 'all') return false;
+      withDeps = button === 'all';
     }
     say(t('libs.installing', { name, version }));
     await backend.call('libInstall', { name, version, deps: withDeps });
@@ -612,59 +592,75 @@ export function main({ lilos, root, args }) {
     startSuggestions();
   }
 
-  function boardDialog() {
-    let chosen = parseFqbn(fqbn) ?? { board: BOARDS[0], cpu: '' };
-    let chosenPort = portId;
-    const boardList = h('div', { class: 'opts' });
-    const cpuRow = h('div', { class: 'opts' });
-    const portList = h('div', { class: 'opts' });
-    const note = h('p', { class: 'faint' });
-    const draw = () => {
-      boardList.replaceChildren(...BOARDS.map(b => h('button', { class: `opt${b === chosen.board ? ' on' : ''}`, type: 'button', role: 'radio', 'aria-checked': String(b === chosen.board),
-        onclick: () => { chosen = { board: b, cpu: b.default ?? '' }; draw(); } },
-      h('span', { class: `radio${b === chosen.board ? ' on' : ''}` }), h('span', { class: 'nm' }, b.name, h('small', {}, b.fqbn)))));
-      const cpus = Object.keys(chosen.board.cpus).filter(Boolean);
-      cpuRow.replaceChildren(...(cpus.length ? [h('h5', {}, t('board.cpu')), ...cpus.map(c => h('button', { class: `opt${c === chosen.cpu ? ' on' : ''}`, type: 'button', role: 'radio', 'aria-checked': String(c === chosen.cpu),
-        onclick: () => { chosen = { ...chosen, cpu: c }; draw(); } },
-      h('span', { class: `radio${c === chosen.cpu ? ' on' : ''}` }), h('span', { class: 'nm' }, t(`cpu.${c}`), h('small', {}, `cpu=${c}`))))] : []));
-      portList.replaceChildren(...ports.map(p => h('button', { class: `opt${p.id === chosenPort ? ' on' : ''}`, type: 'button', role: 'radio', 'aria-checked': String(p.id === chosenPort),
-        onclick: () => { chosenPort = p.id; const sure = boardOfPort(p); const rem = portBoards[usbKey(p)]; const f = sure ? fqbnOf(sure, sure.default ?? '') : rem; if (f) chosen = parseFqbn(f) ?? chosen; draw(); } },
-      h('span', { class: `radio${p.id === chosenPort ? ' on' : ''}` }), h('span', { class: 'nm' }, usbKey(p) ?? t('port.serial'),
-        h('small', { class: 'txt' }, boardOfPort(p) ? boardOfPort(p).name : portBoards[usbKey(p)] ? t('port.remembered', { board: parseFqbn(portBoards[usbKey(p)])?.board.name ?? '' }) : GENERIC_USB[usbKey(p)] ? t('port.generic', { chip: GENERIC_USB[usbKey(p)] }) : t('port.unknown'))))));
-      if (!ports.length) portList.append(h('p', { class: 'faint' }, serialOk.value ? t('port.noneYet') : t('serial.unsupported')));
-    };
-    const add = h('button', { class: 'btn', type: 'button', html: ico('usb'), disabled: !serialOk.value, onclick: async () => {
-      try {
-        const p = await lilos.serial.request({ filters: [] });
-        if (!p) return;
-        await refreshPorts();
-        chosenPort = p.id;
-        const sure = boardOfPort(p);
-        if (sure) chosen = { board: sure, cpu: sure.default ?? '' };
-        draw();
-      } catch (err) { note.textContent = err.message; }
-    } });
-    add.append(t('port.add'));
-    const done = ok => {
-      if (ok) {
-        const port = ports.find(p => p.id === chosenPort);
-        portId = port ? port.id : null;
-        if (port && !boardOfPort(port) && usbKey(port)) { portBoards[usbKey(port)] = fqbnOf(chosen.board, chosen.cpu); lilos.storage.set('portBoards', portBoards).catch(() => {}); }
-        setBoard(fqbnOf(chosen.board, chosen.cpu));
+  /** What the board dialog says of a port: the board it surely is, the one remembered for it, or its adapter. */
+  const portNote = p => {
+    const key = usbKey(p), sure = boardOfPort(p);
+    return sure ? sure.name : portBoards[key] ? t('port.remembered', { board: parseFqbn(portBoards[key])?.board.name ?? '' })
+      : GENERIC_USB[key] ? t('port.generic', { chip: GENERIC_USB[key] }) : t('port.unknown');
+  };
+  /** The fqbn a port brings with it (its board, or the one remembered for its adapter), or null. */
+  const fqbnOfPort = p => {
+    const sure = boardOfPort(p);
+    return sure ? fqbnOf(sure, sure.default ?? '') : portBoards[usbKey(p)] ?? null;
+  };
+
+  /**
+   * Board and port, in lilOS's message box: one list of boards (with their processor), one of
+   * ports. «Add a port…» asks the browser for one, then the box comes back with it chosen; a port
+   * chosen without touching the board brings its own board.
+   */
+  let choosing = false;
+  async function boardDialog() {
+    if (choosing) return;
+    choosing = true;
+    try {
+      await refreshPorts();
+      const now = parseFqbn(fqbn) ?? { board: BOARDS[0], cpu: BOARDS[0].default ?? '' };
+      let board = fqbnOf(now.board, now.cpu), port = portId ?? '', added = null;
+      const boards = BOARDS.flatMap(b => {
+        const cpus = Object.keys(b.cpus).filter(Boolean);
+        return cpus.length ? cpus.map(c => ({ value: fqbnOf(b, c), label: `${b.name} · ${t(`cpu.${c}`)}` })) : [{ value: fqbnOf(b, ''), label: b.name }];
+      });
+      for (;;) {
+        const shown = { board, port };
+        const { button, values } = await lilos.ui.messageBox({
+          title: t('board.title'), width: 460,
+          fields: [
+            { name: 'board', type: 'select', label: t('board.board'), value: board, options: boards, hint: t('board.only') },
+            { name: 'port', type: 'select', label: t('board.port'), value: port,
+              options: [{ value: '', label: t('port.noneOption') }, ...ports.map(p => ({ value: p.id, label: `${usbKey(p) ?? t('port.serial')} · ${portNote(p)}` }))],
+              hint: !serialOk.value ? t('serial.unsupported') : ports.length ? t('board.where') : t('port.noneYet') },
+          ],
+          buttons: [...(serialOk.value ? [{ value: 'add', label: t('port.add') }] : []), 'cancel', 'ok'],
+          default: 'ok',
+          // «Add a port…»: the browser's own list; the box stays open if the user closes it
+          validate: async (v, pressed) => {
+            if (pressed !== 'add') return true;
+            try { added = await lilos.serial.request({ filters: [] }); } catch (err) { return err.message; }
+            return added ? true : false;
+          },
+        });
+        if (button === 'add' && added) {
+          await refreshPorts();
+          port = added.id;
+          board = fqbnOfPort(added) ?? values.board;
+          added = null;
+          continue;
+        }
+        if (button !== 'ok') return;
+        const chosenPort = ports.find(p => p.id === values.port) ?? null;
+        board = values.board;
+        if (chosenPort && values.port !== shown.port && values.board === shown.board) board = fqbnOfPort(chosenPort) ?? board;
+        portId = chosenPort ? chosenPort.id : null;
+        if (chosenPort && !boardOfPort(chosenPort) && usbKey(chosenPort)) { portBoards[usbKey(chosenPort)] = board; lilos.storage.set('portBoards', portBoards).catch(() => {}); }
+        setBoard(board);
         drawBoard();
         drawStatus();
+        return;
       }
-      dlg.remove();
-    };
-    const dlg = h('div', { class: 'modal', onkeydown: e => { if (e.key === 'Escape') done(false); e.stopPropagation(); } }, h('div', { class: 'dialog wide', role: 'dialog', 'aria-label': t('board.title') },
-      h('h3', {}, t('board.title')),
-      h('div', { class: 'cols' },
-        h('div', {}, h('h5', {}, t('board.board')), boardList, cpuRow, h('p', { class: 'faint' }, t('board.only'))),
-        h('div', {}, h('h5', {}, t('board.ports')), portList, add, h('p', { class: 'faint' }, t('board.where')), note)),
-      h('div', { class: 'row end' }, h('button', { class: 'btn', type: 'button', onclick: () => done(false) }, t('cancel')), h('button', { class: 'btn primary', type: 'button', onclick: () => done(true) }, t('ok')))));
-    box.append(dlg);
-    draw();
-    refreshPorts().then(draw);
+    } finally {
+      choosing = false;
+    }
   }
 
   // ---------- Suggestions ----------
@@ -882,26 +878,26 @@ export function main({ lilos, root, args }) {
 
   async function saveMonitor() {
     const stamp = new Date().toISOString().slice(0, 19).replace('T', ' ').replace(/:/g, '.');
-    const folder = sketch?.folder ?? ROOT;
-    const path = `${folder}/monitor ${stamp}.txt`;
     try {
       await ensureRoot();
-      await lilos.files.write(path, monView.text());
-      monView.note(t('monitor.saved', { path }));
+      // Saved twice in the same second: a second file ('… 2.txt'), never over the first
+      const saved = await lilos.files.write(`${sketch?.folder ?? ROOT}/monitor ${stamp}.txt`, monView.text(), { unique: true });
+      monView.note(t('monitor.saved', { path: saved.ref }));
     } catch (err) { monView.note(err.message, 'err'); }
   }
 
   // ---------- Keys ----------
+  // Verify, Upload and Save are commands of the manifest (contributes.commands: Ctrl+R, Ctrl+U,
+  // Ctrl+S unless the user changes them in Control Panel): lilOS sends their id.
+  const COMMANDS = { 'arduino-ide.verify': () => verify(), 'arduino-ide.upload': () => doUpload(), 'arduino-ide.save': () => flushSave() };
+  const offs = [lilos.on('command', id => COMMANDS[id]?.())];
+  // Not isolated, the app shares lilOS's keyboard: Delete, Backspace and the combos the editor
+  // used (Ctrl+Z, Ctrl+A…) must not reach lilOS's own shortcuts too
   box.addEventListener('keydown', e => {
-    const mod = e.ctrlKey || e.metaKey;
-    if (mod && !e.shiftKey && !e.altKey && (e.key === 'r' || e.key === 'R')) { e.preventDefault(); e.stopPropagation(); verify(); }
-    else if (mod && !e.shiftKey && !e.altKey && (e.key === 'u' || e.key === 'U')) { e.preventDefault(); e.stopPropagation(); doUpload(); }
-    else if (mod && !e.shiftKey && !e.altKey && (e.key === 's' || e.key === 'S')) { e.preventDefault(); e.stopPropagation(); flushSave(); }
-    else if (mod || e.key === 'Delete' || e.key === 'Backspace') e.stopPropagation();   // lilOS's own shortcuts stay out of the editor
+    if (e.key === 'Delete' || e.key === 'Backspace' || ((e.ctrlKey || e.metaKey) && e.defaultPrevented)) e.stopPropagation();
   });
 
   // ---------- Start ----------
-  const offs = [];
   // A suggestion that comes too late (the server still warming up) is not an error for the user
   const lateAnswer = e => { if (/Request timed out|non-existent request/.test(String(e.reason?.message ?? e.reason ?? ''))) e.preventDefault(); };
   addEventListener('unhandledrejection', lateAnswer);

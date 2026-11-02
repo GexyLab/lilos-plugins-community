@@ -1,6 +1,6 @@
 {
   "id": "arduino-ide",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "kind": "local",
   "name": "ArduinoIDE4LilOS",
   "description": "Write, compile and upload sketches for Arduino Uno, Nano and Mega, with suggestions while you type, libraries and the serial monitor. The board is plugged into your computer (Chrome, Edge or Firefox 151+).",
@@ -14,7 +14,7 @@
     "name": "lilOS"
   },
   "sdk": "2",
-  "lilos": ">=1.18.0",
+  "lilos": ">=1.21.0",
   "entrypoints": {
     "main": {
       "kind": "window",
@@ -30,7 +30,8 @@
   "permissions": [
     "fs.write:~/Arduino",
     "serial",
-    "kernel:arduino"
+    "kernel:arduino",
+    "ui.shortcuts"
   ],
   "contributes": {
     "window": {
@@ -39,6 +40,29 @@
     },
     "fileTypes": [
       "ino"
+    ],
+    "commands": [
+      {
+        "id": "arduino-ide.verify",
+        "label": "Verify the sketch",
+        "keys": [
+          "Ctrl+R"
+        ]
+      },
+      {
+        "id": "arduino-ide.upload",
+        "label": "Upload to the board",
+        "keys": [
+          "Ctrl+U"
+        ]
+      },
+      {
+        "id": "arduino-ide.save",
+        "label": "Save the sketch",
+        "keys": [
+          "Ctrl+S"
+        ]
+      }
     ]
   },
   "install": [
@@ -50,7 +74,7 @@
   "entry": "dist/index.js",
   "locales": "locales.json",
   "files": {
-    "dist/index.js": "sha256-fDtT6BydAQbXRp28h8A5QBsr1i0vl4mcsNpHRKv2mLA=",
-    "locales.json": "sha256-AIs5toZ8YTnChEnqfzhggsEBsaeKUZAtYxSIbyscrIQ="
+    "dist/index.js": "sha256-EnD8lVh5HOK6FAxSp59ukl9u2MOB8+JbxN9Yo/pvVEI=",
+    "locales.json": "sha256-rKO8vc/dcOz2mY302IPUBUmFMqg4Dtea2sWjvwN4iDg="
   }
 }
