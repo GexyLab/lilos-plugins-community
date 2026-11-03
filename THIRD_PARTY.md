@@ -42,6 +42,20 @@ Not part of this repository: an administrator's setup downloads them from Arduin
 | arduino-language-server | 0.7.7 | AGPL-3.0 | Copyright © ARDUINO SA | https://github.com/arduino/arduino-language-server |
 | clangd | 14.0.0 | Apache-2.0 WITH LLVM-exception | Copyright © The LLVM Project | https://clangd.llvm.org |
 
+## Compiled into Compress Archive (`apps/compress-archive`)
+
+The engine is [libarchive](https://www.libarchive.org) with the compression and encryption libraries it uses, compiled to WebAssembly by `scripts/build-libarchive.mjs` (versions and SHA-256 of the sources there) and built into `apps/compress-archive/dist/work.js`. Emscripten's runtime and its C library, musl, are compiled in with them. Their licenses are in `src/compress-archive/engine/licenses/`.
+
+| Name | Version | License | Copyright | Site |
+|---|---|---|---|---|
+| zlib | 1.3.2 | Zlib | Copyright (C) 1995-2026 Jean-loup Gailly and Mark Adler | https://zlib.net |
+| bzip2 | 1.0.8 | bzip2-1.0.6 | Copyright (C) 1996-2019 Julian R Seward | https://sourceware.org/bzip2/ |
+| xz | 5.8.4 | 0BSD | Lasse Collin, Igor Pavlov and the XZ Utils contributors | https://tukaani.org/xz/ |
+| mbedtls | 3.6.7 | Apache-2.0 | Copyright The Mbed TLS Contributors | https://www.trustedfirmware.org/projects/mbed-tls/ |
+| libarchive | 3.8.10 | BSD-2-Clause | Copyright Tim Kientzle and the libarchive contributors | https://www.libarchive.org |
+| emscripten | 6.0.12 | MIT | Copyright (c) 2010-2014 Emscripten authors | https://emscripten.org |
+| musl | 1.2.6 | MIT | Copyright © 2005-2020 Rich Felker, et al. | https://musl.libc.org |
+
 ## Build tools
 
 | Name | Version | License | Copyright | Site |

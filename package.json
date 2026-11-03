@@ -7,7 +7,9 @@
   "type": "module",
   "scripts": {
     "build": "node scripts/build.mjs",
-    "check:credits": "node scripts/build.mjs --check-credits"
+    "check:credits": "node scripts/build.mjs --check-credits",
+    "build:libarchive": "node scripts/build-libarchive.mjs",
+    "test:compress-archive": "node --test src/compress-archive/test/archive.test.mjs"
   },
   "devDependencies": {
     "vite": "8.3.5"

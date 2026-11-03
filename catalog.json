@@ -1,7 +1,8 @@
 {
   "name": "lilOS community",
   "apps": [
-    "apps/arduino-ide"
+    "apps/arduino-ide",
+    "apps/compress-archive"
   ],
   "modules": [
     "modules/arduino"

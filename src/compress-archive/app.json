@@ -1,0 +1,53 @@
+{
+  "id": "compress-archive",
+  "version": "2.0.0",
+  "kind": "local",
+  "name": "Compress Archive",
+  "description": "Makes and opens archives: zip, 7z, tar, tar.gz, tar.bz2, tar.xz, iso, gz, bz2 and xz; also opens rar. From the menu of files and folders (Compress) or by opening an archive.",
+  "category": "productivity",
+  "icon": { "glyph": "archive", "color": "#b07a2a" },
+  "publisher": { "id": "lilos", "name": "lilOS" },
+  "sdk": "2",
+  "lilos": ">=1.22.0",
+  "entrypoints": {
+    "main": { "kind": "window" },
+    "compressAs": { "kind": "window", "label": "Compress as…", "window": { "width": 540, "height": 600 } },
+    "work": { "kind": "background", "file": "dist/work.js", "label": "Compress and extract" }
+  },
+  "permissions": ["fs.write:~", "ui.menus"],
+  "contributes": {
+    "window": { "width": 720, "height": 520 },
+    "fileTypes": ["zip", "7z", "tar", "tgz", "gz", "tbz", "tbz2", "bz2", "txz", "xz", "rar", "iso"],
+    "menus": [
+      { "id": "compress-archive.menu", "label": "Compress", "glyph": "archive" }
+    ],
+    "actions": [
+      { "id": "compress-archive.zip", "label": "Zip", "entry": "work", "on": "item", "glyph": "archive", "menu": "compress-archive.menu", "many": true,
+        "when": { "notExt": ["zip", "7z", "tar", "tgz", "gz", "tbz", "tbz2", "bz2", "txz", "xz", "rar", "iso"] } },
+      { "id": "compress-archive.targz", "label": "Tar.gz", "entry": "work", "on": "item", "glyph": "archive", "menu": "compress-archive.menu", "many": true,
+        "when": { "notExt": ["zip", "7z", "tar", "tgz", "gz", "tbz", "tbz2", "bz2", "txz", "xz", "rar", "iso"] } },
+      { "id": "compress-archive.extract", "label": "Extract here", "entry": "work", "on": "file", "glyph": "folderOpen", "menu": "compress-archive.menu", "many": true,
+        "when": { "ext": ["zip", "7z", "tar", "tgz", "gz", "tbz", "tbz2", "bz2", "txz", "xz", "rar", "iso"] } },
+      { "id": "compress-archive.compressAs", "label": "Compress as…", "entry": "compressAs", "on": "item", "glyph": "archive", "menu": "compress-archive.menu", "many": true }
+    ],
+    "automation": [
+      { "id": "compress-archive.compress", "label": "Compress into an archive", "entry": "work", "result": "file",
+        "description": "Makes an archive of the items, next to them",
+        "params": {
+          "items": { "type": "files", "label": "Items to compress", "subject": true },
+          "format": { "type": "choice", "label": "Format", "default": "zip", "options": [
+            { "value": "zip", "label": "Zip" }, { "value": "7z", "label": "7z" }, { "value": "tar", "label": "Tar" },
+            { "value": "tar.gz", "label": "Tar.gz" }, { "value": "tar.bz2", "label": "Tar.bz2" }, { "value": "tar.xz", "label": "Tar.xz" },
+            { "value": "iso", "label": "ISO" }, { "value": "gz", "label": "Gzip (.gz, one file)" }, { "value": "bz2", "label": "Bzip2 (.bz2, one file)" },
+            { "value": "xz", "label": "Xz (.xz, one file)" }
+          ] },
+          "level": { "type": "choice", "label": "Compression", "default": "normal", "options": [
+            { "value": "fast", "label": "Fast" }, { "value": "normal", "label": "Normal" }, { "value": "max", "label": "Maximum" }
+          ] }
+        } },
+      { "id": "compress-archive.extract", "label": "Extract an archive", "entry": "work", "result": "file",
+        "description": "Extracts the archive next to it",
+        "params": { "file": { "type": "file", "label": "Archive", "subject": true } } }
+    ]
+  }
+}
